@@ -7,6 +7,7 @@ import { IconHome, IconExplore, IconTrips } from './components/Icons'
 const Explore = lazy(() => import('./components/Explore'))
 const HomePage = lazy(() => import('./components/HomePage'))
 const AdminPanel = lazy(() => import('./components/AdminPanel'))
+const CountryRankings = lazy(() => import('./components/CountryRankings'))
 import { countryNames } from './data/destinationsByCountry'
 import { loadUserProfile, saveUserProfile, RACE_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS } from './data/userProfileOptions'
 import { runPendingSync } from './data/communityData'
@@ -158,6 +159,7 @@ function App() {
   const isHome = path === '/'
   const isExplore = path === '/explore' || path.startsWith('/explore/')
   const isTrips = path === '/trips'
+  const isRankings = path === '/rankings'
   const isAdmin = path === '/admin'
 
   // Update document title for SEO and browser tab
@@ -167,8 +169,9 @@ function App() {
     else if (country) document.title = `${country} – Atripza`
     else if (isExplore) document.title = 'Explore destinations – Atripza'
     else if (isTrips) document.title = 'My trips – Atripza'
+    else if (isRankings) document.title = 'Country rankings – Atripza'
     else if (isAdmin) document.title = 'Admin – Atripza'
-  }, [path, isHome, isExplore, isTrips, isAdmin])
+  }, [path, isHome, isExplore, isTrips, isRankings, isAdmin])
 
   return (
     <div className={styles.app}>
@@ -289,6 +292,13 @@ function App() {
             <IconTrips className={styles.navIcon} />
             <span>My trips</span>
           </Link>
+          <Link
+            to="/rankings"
+            className={isRankings ? styles.navBtnActive : styles.navBtn}
+            aria-current={isRankings ? 'page' : undefined}
+          >
+            <span>Rankings</span>
+          </Link>
         </nav>
       </header>
 
@@ -407,6 +417,10 @@ function App() {
             }
           />
           <Route
+            path="/rankings"
+            element={<CountryRankings onBack={() => navigate('/')} />}
+          />
+          <Route
             path="/admin"
             element={<AdminPanel onExit={() => navigate('/')} />}
           />
@@ -419,6 +433,12 @@ function App() {
         <p className={styles.footerDisclaimer}>
           This site is for general information only. We do not make any claims about accuracy, completeness, or suitability of the content. Nothing here is professional travel, legal, or health advice. Always verify important information with official sources and use this site at your own risk.
         </p>
+        <div className={styles.footerResources}>
+          <span className={styles.footerResourcesLabel}>Official resources:</span>
+          <a href="https://travel.state.gov/content/travel/en/international-travel.html" target="_blank" rel="noopener noreferrer" className={styles.footerResourceLink}>US State Dept travel</a>
+          <a href="https://www.gov.uk/foreign-travel-advice" target="_blank" rel="noopener noreferrer" className={styles.footerResourceLink}>UK travel advice</a>
+          <a href="https://www.who.int/emergencies/diseases" target="_blank" rel="noopener noreferrer" className={styles.footerResourceLink}>WHO health</a>
+        </div>
         {siteViews != null && (
           <p className={styles.footerViews}>Total visits: <span className={styles.footerViewsCount}>{siteViews.toLocaleString()}</span></p>
         )}

@@ -20,6 +20,13 @@ const GUIDES = {
       'Tipping is optional; service is included. Rounding up or leaving small change is enough.',
       'Don’t expect a smile from strangers—it’s not coldness, just reserve until you know someone.',
     ],
+    neverDo: [
+      'Don’t skip saying "Bonjour" when entering a shop or café—it’s seen as rude.',
+      'Don’t ask for the bill as soon as you finish eating; meals are meant to be lingered over.',
+      'Don’t order a cappuccino or coffee with a full meal in a proper restaurant—water and wine are the norm.',
+      'Don’t touch produce at markets without buying; let the vendor hand you items.',
+      'Don’t assume everyone speaks English; start with a few words in French.',
+    ],
   },
   Japan: {
     blurb: 'Ancient temples and neon cities, cherry blossoms and bullet trains. Japan balances tradition and future like nowhere else.',
@@ -56,6 +63,13 @@ const GUIDES = {
       'A small "coperto" (cover charge) on the bill is normal; tipping is optional (round up).',
       'Dinner starts late: 8–9 p.m. is normal; earlier can mean tourist-only spots.',
     ],
+    neverDo: [
+      'Don’t enter churches in shorts, short skirts, or bare shoulders—you’ll be turned away.',
+      'Don’t order cappuccino after 11 a.m. or with a meal; it’s a breakfast drink.',
+      'Don’t ask for parmesan on seafood or fish pasta.',
+      'Don’t cut spaghetti with a knife; twirl it with a fork (and spoon if you like).',
+      'Don’t sit at a table and expect table service at a bar; order and pay at the counter.',
+    ],
   },
   Spain: {
     blurb: 'Siesta, tapas, and fiesta. From Gaudí to flamenco and sun-soaked islands, Spain never stops giving.',
@@ -69,10 +83,17 @@ const GUIDES = {
     ],
     cultureFacts: [
       'Lunch is around 2–4 p.m. and dinner often 9–11 p.m.; many shops close for siesta.',
-      'Tapas are often free with a drink in the south; in tourist areas you’ll usually pay.',
-      'Spaniards use two surnames (father’s + mother’s); don’t assume the first is "family name."',
+      'Tapas are often free with a drink in the south; in tourist areas you'll usually pay.',
+      'Spaniards use two surnames (father's + mother's); don't assume the first is "family name."',
       'Greet with two kisses (cheek to cheek) in social settings; handshakes for business.',
-      'Don’t expect punctuality for social plans—"ahora" (now) can mean in a while.',
+      'Don't expect punctuality for social plans—"ahora" (now) can mean in a while.',
+    ],
+    neverDo: [
+      "Don't expect lunch before 2 p.m. or dinner before 9 p.m. in most of Spain.",
+      "Don't confuse Catalonia or the Basque Country with \"just Spain\"—identity matters.",
+      "Don't skip the greeting (two kisses or handshake); diving into business is rude.",
+      "Don't rush a meal; Spaniards don't do quick lunches.",
+      "Don't assume \"tapas\" means free everywhere; in tourist areas you usually pay.",
     ],
   },
   'United Kingdom': {
@@ -92,6 +113,13 @@ const GUIDES = {
       'In pubs you often order (and pay) at the bar; table service isn’t standard.',
       'Tea is serious: "builder’s tea" is strong with milk; declining can be fine but expect it offered.',
     ],
+    neverDo: [
+      "Don't jump the queue—Brits take lining up very seriously.",
+      "Don't say \"England\" when you mean the whole UK; Scotland, Wales, and NI are distinct.",
+      "Don't expect table service in a pub; order and pay at the bar.",
+      "Don't be overly loud or touchy in public; Brits value reserve.",
+      "Don't refuse a cup of tea when offered; it's a social ritual.",
+    ],
   },
   Thailand: {
     blurb: 'Temples, street food, and beaches. Smiles, spice, and value that keep travellers coming back.',
@@ -109,6 +137,13 @@ const GUIDES = {
       'Remove shoes before entering homes and many temples.',
       'The king and royal family are deeply respected; avoid criticism or disrespect.',
       'Wai (palms together, slight bow) is the traditional greeting; return it appropriately.',
+    ],
+    neverDo: [
+      "Never touch a Thai person's head—even a child's—or point your feet at people or Buddha images.",
+      "Don't disrespect the king or royal family; it's illegal and deeply offensive.",
+      "Don't enter temples in shorts, short skirts, or bare shoulders.",
+      "Don't take photos with Buddha in a disrespectful way (e.g. climbing on statues).",
+      "Don't raise your voice or lose your temper; losing face is a big deal.",
     ],
   },
   Greece: {
@@ -128,6 +163,13 @@ const GUIDES = {
       'Dinner is often late (9–10 p.m.); lunch is the big meal for many families.',
       'Tipping: round up or leave 5–10%; service is sometimes included but extra is appreciated.',
     ],
+    neverDo: [
+      'Don’t use an open palm with fingers spread to wave or gesture—it’s the "moutza" insult.',
+      'Don’t refuse food or drink when offered at someone’s home; accept at least a little.',
+      'Don’t assume a backward head nod means yes—in Greece it often means no.',
+      'Don’t take photos of monks or religious ceremonies without permission.',
+      'Don’t rush through a meal; Greeks take their time at the table.',
+    ],
   },
   Portugal: {
     blurb: 'Tiles, trams, and dramatic coastlines. Underrated food, wine, and warmth without the crowds.',
@@ -145,6 +187,13 @@ const GUIDES = {
       'Dinner is often 8–9 p.m.; lunch is the main meal for many.',
       'Tipping is optional; rounding up is common; 5–10% in restaurants is generous.',
       'Personal space is smaller; touching during conversation is normal among friends.',
+    ],
+    neverDo: [
+      'Don’t call Portugal "part of Spain" or assume they speak Spanish—Portuguese identity is distinct.',
+      'Don’t expect dinner before 8 p.m. in most places.',
+      'Don’t skip the queue; Portuguese take turns seriously.',
+      'Don’t leave trash on beaches or in nature; locals are proud of their coast.',
+      'Don’t assume everyone speaks English in small towns; a few phrases help.',
     ],
   },
   Iceland: {
@@ -164,6 +213,13 @@ const GUIDES = {
       'Tipping is not expected; wages are high and service is included.',
       'Off-road driving is illegal; stick to marked roads (F-roads need 4×4 and care).',
     ],
+    neverDo: [
+      'Don’t skip the shower before entering a pool or hot spring—it’s mandatory and enforced.',
+      'Don’t walk or drive on moss or off marked roads; nature is fragile and off-roading is illegal.',
+      'Don’t ignore weather or road warnings; conditions change fast.',
+      'Don’t leave the road to get closer to wildlife or waterfalls; stay on paths.',
+      'Don’t assume you can camp anywhere; use designated sites.',
+    ],
   },
   Australia: {
     blurb: 'Beaches, reefs, and outback. Laid-back cities, unique wildlife, and distances worth every mile.',
@@ -181,6 +237,13 @@ const GUIDES = {
       'Tipping is not expected; rounding up or 10% for good service is fine.',
       'Distances are huge—don’t underestimate drive times; fuel and water in remote areas matter.',
       '"No worries" and "mate" are common; taking the piss (light teasing) is often friendly.',
+    ],
+    neverDo: [
+      'Don’t climb Uluru or ignore signs at sacred Indigenous sites.',
+      'Don’t underestimate distances; running out of fuel or water in the outback is dangerous.',
+      'Don’t touch or feed wildlife; it’s illegal and harmful.',
+      'Don’t assume "no worries" or teasing is hostility; it’s often friendly.',
+      'Don’t skip sunscreen and hydration; the sun is harsh.',
     ],
   },
   Mexico: {
@@ -217,6 +280,13 @@ const GUIDES = {
       'Lunch is the main meal; dinner is often lighter and earlier than in Spain.',
       'Bargaining is common in markets; stay polite; fixed prices in shops and restaurants.',
       'Respect sacred sites and local guides; don’t remove stones or touch restricted areas.',
+    ],
+    neverDo: [
+      'Don’t rush at altitude in Cusco or the Sacred Valley; take it easy the first 24–48 hours.',
+      'Don’t take coca leaves or coca tea bags home; illegal in most countries.',
+      'Don’t touch or remove anything at Machu Picchu or other sacred sites.',
+      'Don’t skip booking the Inca Trail or Machu Picchu tickets well in advance.',
+      'Don’t drink tap water in the highlands; stick to bottled or boiled.',
     ],
   },
   'New Zealand': {
@@ -479,6 +549,7 @@ export function getCountryGuide(countryName) {
     bestTime: custom?.bestTime ?? defaultBestTime(),
     experiences: custom?.experiences ?? defaultExperiences(countryName, cities),
     cultureFacts: custom?.cultureFacts ?? defaultCultureFacts(),
+    neverDo: custom?.neverDo ?? defaultNeverDo(),
     highlights: cities.slice(0, 8),
     allDestinations: cities,
     mustVisit,

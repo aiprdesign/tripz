@@ -69,6 +69,19 @@ export default function HomePage({ userCountry, tripCount, onNavigate, onCreateI
         </p>
       </div>
 
+      <div className={styles.getStarted} role="region" aria-label="What’s on the site">
+        <p className={styles.getStartedTitle}>What you get for every country</p>
+        <ul className={styles.getStartedList}>
+          <li><strong>When to go</strong> — Best seasons and weather</li>
+          <li><strong>Practical info</strong> — Currency, language, emergency numbers, visa notes, plugs</li>
+          <li><strong>Safety & visitor info</strong> — Safety for women and foreigners, friendliness, laws, mental health context, and—if you set your profile—attitude towards foreigners and precautions by race</li>
+          <li><strong>Culture & etiquette</strong> — Tipping, dress, gestures, and local norms</li>
+          <li><strong>Useful phrases</strong> — Basic words in the local language</li>
+          <li><strong>Must-sees & experiences</strong> — Curated places and what to do there</li>
+          <li><strong>Trip planner</strong> — Add places to a trip, set dates, and track bookings</li>
+        </ul>
+        <p className={styles.getStartedDisclaimer}>All content is for general information only. Always verify with official sources before travel.</p>
+      </div>
       <div className={styles.getStarted} role="region" aria-label="How to get started">
         <p className={styles.getStartedTitle}>How to get started</p>
         <ol className={styles.getStartedList}>
@@ -107,6 +120,13 @@ export default function HomePage({ userCountry, tripCount, onNavigate, onCreateI
           <span className={styles.cardTitle}>Explore the world</span>
           <span className={styles.cardDesc}>
             Browse the map, pick a country, and see top destinations and experiences.
+          </span>
+        </Link>
+        <Link to="/rankings" className={styles.card}>
+          <span className={styles.cardIcon}><IconExplore /></span>
+          <span className={styles.cardTitle}>Country rankings</span>
+          <span className={styles.cardDesc}>
+            Compare countries by ease of travel, fun, safety, affordability, tourist welcome, and laws.
           </span>
         </Link>
         <Link to="/trips" className={styles.card}>

@@ -202,7 +202,7 @@ export default function AdminPanel({ onExit }) {
 
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Stat suggestions (approve or reject)</h3>
-        <p className={styles.sectionIntro}>User-submitted corrections or additions to country stats. Approve to apply to the live site.</p>
+        <p className={styles.sectionIntro}>User-submitted corrections or additions to country stats. Approve to apply to the live site. Approved content is not professionally verified; the site directs users to confirm important facts with official sources.</p>
         {statSuggestions.length === 0 ? (
           <p className={styles.empty}>No pending suggestions.</p>
         ) : (

@@ -8,6 +8,7 @@ export const prerenderRoutes = [
   '/',
   '/explore',
   '/trips',
+  '/rankings',
   '/admin',
   ...countryNames.map((c) => `/explore/${encodeURIComponent(c)}`),
 ]

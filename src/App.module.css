@@ -345,6 +345,29 @@
   opacity: 0.9;
 }
 
+.footerResources {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+}
+
+.footerResourcesLabel {
+  color: var(--muted);
+}
+
+.footerResourceLink {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footerResourceLink:hover {
+  text-decoration: underline;
+}
+
 .footerViews {
   margin: 0 0 0.5rem;
 }

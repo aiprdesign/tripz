@@ -8,6 +8,7 @@ import {
   lawsToGauge,
   STAT_FIELDS_FOR_SUGGESTIONS,
 } from '../data/countrySafetyLawsMentalHealth'
+import { getPracticalInfo } from '../data/practicalInfoByCountry'
 import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
 import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getCategoriesForDestination, categoryNames, matchesAnyCategory } from '../data/destinationsByCategory'
@@ -156,6 +157,7 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
         <div className={styles.tipBanner}>
           <strong>Tip:</strong> Click any place card to see costs, things to avoid, and add it to a trip. Use the filters above to narrow by priority or type (e.g. temples, beaches).
         </div>
+        <p className={styles.guideScope}>This guide covers when to go, practical info (visa, currency, emergency numbers), safety and attitude towards foreigners, culture and etiquette, useful phrases, and the best places and experiences in {guide.country}.</p>
 
         <div className={styles.filterBar}>
           <div className={styles.filterGroup}>
@@ -217,9 +219,28 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
           <p className={styles.sectionBody}>{guide.bestTime}</p>
         </section>
 
+        <section className={styles.section} aria-labelledby="practical-info-heading">
+          <h2 id="practical-info-heading" className={styles.sectionTitle}>Practical info</h2>
+          <p className={styles.sectionIntro}>Currency, language, emergency numbers, visas, and plugs. We do not guarantee accuracy—always confirm with official sources before travel.</p>
+          {(() => {
+            const p = getPracticalInfo(guide.country)
+            return (
+              <ul className={styles.practicalInfoList}>
+                <li><strong>Currency</strong> — {p.currency}</li>
+                <li><strong>Language(s)</strong> — {p.language}</li>
+                <li><strong>Emergency</strong> — {p.emergency}</li>
+                <li><strong>Visa</strong> — {p.visaNote}</li>
+                <li><strong>Plugs & voltage</strong> — {p.plugs}</li>
+              </ul>
+            )
+          })()}
+          <p className={styles.beforeYouGo}>Before you go: check visa requirements, travel insurance, and any recommended vaccinations with your doctor or official health and foreign-affairs sites.</p>
+        </section>
+
         <section className={styles.section} aria-labelledby="visitor-info-heading">
           <h2 id="visitor-info-heading" className={styles.sectionTitle}>Safety & visitor info</h2>
           <p className={styles.sectionIntro}>What to expect: safety for women and foreigners, friendliness to visitors, how regulated the country is, and what share of the population has mental health issues.</p>
+          <p className={styles.sectionDisclaimer}>All of the following is indicative only and not a substitute for official travel advisories or your own research.</p>
           <p className={styles.gaugeLegend} role="img" aria-label="Gauge colors: dark green best, light green good, yellow alert, red bad">
             <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#0d6b0d' }}>Best</span>
             <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#5cb85c' }}>Good</span>
@@ -308,6 +329,7 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
               <div className={styles.racePrecautionsCard}>
                 <h3 className={styles.racePrecautionsTitle}>Precautions for your profile ({userProfile.race})</h3>
                 <p className={styles.racePrecautionsText}>{racePrecautions}</p>
+                <p className={styles.racePrecautionsDisclaimer}>General guidance only; experiences vary. Not a guarantee of conditions—always use official sources and your own judgment.</p>
               </div>
             )
           })()}
@@ -349,7 +371,7 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
                       }
                     }}
                   >
-                    <p className={styles.suggestCorrectionIntro}>Propose a change or addition to the stats above. An admin will approve or reject it.</p>
+                    <p className={styles.suggestCorrectionIntro}>Propose a change or addition to the stats above. An admin will approve or reject it. Approved suggestions are not professionally verified—always confirm important facts with official sources.</p>
                     <input type="text" readOnly value={guide.country} className={styles.suggestCorrectionCountry} aria-label="Country" />
                     <label className={styles.suggestCorrectionLabel}>
                       <span>Field to change or add</span>
@@ -389,6 +411,16 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
           <ul className={styles.cultureFactsList}>
             {guide.cultureFacts.map((fact, i) => (
               <li key={i} className={styles.cultureFactItem}>{fact}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className={styles.section} aria-labelledby="never-do-heading">
+          <h2 id="never-do-heading" className={styles.sectionTitle}>Never do — common mistakes</h2>
+          <p className={styles.sectionIntro}>Mistakes tourists often make. Avoid these to stay safe, respectful, and on the right side of local norms.</p>
+          <ul className={styles.neverDoList}>
+            {guide.neverDo.map((item, i) => (
+              <li key={i} className={styles.neverDoItem}>{item}</li>
             ))}
           </ul>
         </section>
@@ -491,6 +523,7 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
             countryName={guide.country}
             onAddToTrip={onAddToTrip}
             filterCities={filteredAllDestinations.length !== guide.allDestinations.length ? filteredAllDestinations : undefined}
+            mustSeeCities={guide.mustVisit}
           />
           <div className={styles.pinList}>
             {filteredAllDestinations.map((city) => (

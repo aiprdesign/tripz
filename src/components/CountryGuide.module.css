@@ -81,6 +81,13 @@
   color: var(--accent);
 }
 
+.guideScope {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
 .filterBar {
   display: flex;
   flex-wrap: wrap;
@@ -337,11 +344,50 @@
   margin: 0 0 1rem;
 }
 
+.sectionDisclaimer {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
 .sectionBody {
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text);
   margin: 0;
+}
+
+.practicalInfoList {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.practicalInfoList li {
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+}
+
+.practicalInfoList strong {
+  display: inline-block;
+  min-width: 7rem;
+}
+
+.beforeYouGo {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 .visitorInfoGrid {
@@ -495,6 +541,13 @@
   line-height: 1.5;
   color: var(--text);
   margin: 0;
+}
+
+.racePrecautionsDisclaimer {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.75rem 0 0;
+  line-height: 1.45;
 }
 
 .suggestCorrectionWrap {
@@ -748,6 +801,32 @@
 }
 
 .cultureFactItem:last-child {
+  border-bottom: none;
+}
+
+.neverDoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.neverDoItem {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.neverDoItem::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.neverDoItem:last-child {
   border-bottom: none;
 }
 

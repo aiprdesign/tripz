@@ -1,0 +1,138 @@
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.intro {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.backBtn:hover {
+  text-decoration: underline;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.legendItem strong {
+  color: var(--text);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.thCountry,
+.tdCountry {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  left: 0;
+  background: var(--bg);
+}
+
+.thScore,
+.tdScore {
+  text-align: center;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  min-width: 2.5rem;
+}
+
+.thLabel,
+.tdLabel {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.thBtn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.25rem 0.35rem;
+  border-radius: var(--radius);
+  font-size: inherit;
+}
+
+.thBtn:hover {
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.tdScore[data-score="5"] { color: var(--success, #0d6b0d); font-weight: 600; }
+.tdScore[data-score="4"] { color: var(--text); }
+.tdScore[data-score="3"] { color: var(--muted); }
+.tdScore[data-score="2"] { color: var(--muted); }
+.tdScore[data-score="1"] { color: var(--danger, #c44); }
+
+.countryLink {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.countryLink:hover {
+  text-decoration: underline;
+}
+
+thead tr {
+  border-bottom: 2px solid var(--border);
+}
+
+tbody tr:hover {
+  background: var(--surface-hover);
+}

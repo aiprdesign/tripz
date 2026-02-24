@@ -62,6 +62,13 @@
   color: var(--text);
 }
 
+.getStartedDisclaimer {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.75rem 0 0;
+  line-height: 1.45;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

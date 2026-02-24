@@ -4,6 +4,7 @@
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 0.5rem;
+  position: relative;
 }
 
 .hint {
@@ -11,6 +12,39 @@
   color: var(--muted);
   margin: 0;
   padding: 0.5rem 0.75rem 0;
+}
+
+.mapControls {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem 0.5rem;
+}
+
+.mapControlBtn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.mapControlBtn:hover {
+  background: var(--accent-dim);
+}
+
+.mapZoomWrap {
+  overflow: hidden;
+  min-height: 280px;
+  touch-action: none;
+  user-select: none;
+}
+
+.mapPanZoom {
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
 
 .map {
@@ -41,5 +75,22 @@
   pointer-events: none;
   stroke: var(--bg);
   stroke-width: 0.8;
+  paint-order: stroke fill;
+}
+
+.markerMustSee circle {
+  fill: var(--accent);
+}
+
+.markerMustSee:hover circle {
+  fill: var(--accent-dim);
+}
+
+.markerMustLabel {
+  font-family: system-ui, sans-serif;
+  font-weight: 700;
+  pointer-events: none;
+  stroke: var(--bg);
+  stroke-width: 1.2;
   paint-order: stroke fill;
 }
