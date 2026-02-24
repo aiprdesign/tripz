@@ -1,15 +1,17 @@
-// Royalty-free destination images from Pexels (https://www.pexels.com).
-// License: Pexels License - free for personal and commercial use, no attribution required.
-// Set VITE_PEXELS_API_KEY in .env to fetch Pexels photos for any city (optional).
-// Fallback: Picsum for any unmapped destination.
-
-import { getCachedPexelsId, pexelsUrlFromId } from './pexelsApi'
+// Destination images use Picsum (https://picsum.photos) so they load reliably.
+// Pexels CDN blocks direct hotlinking (403), so we use deterministic Picsum seeds per place.
 
 const PEXELS_BASE = 'https://images.pexels.com/photos'
 const PEXELS_PARAMS = '?auto=compress&cs=tinysrgb&fit=crop'
 
 function pexelsUrl(photoId, width = 400, height = 300) {
   return `${PEXELS_BASE}/${photoId}/pexels-photo-${photoId}.jpeg${PEXELS_PARAMS}&w=${width}&h=${height}`
+}
+
+/** Picsum URL with deterministic seed so same place = same image. Always works (no hotlink block). */
+function picsumUrl(seed, width = 400, height = 300) {
+  const s = encodeURIComponent(String(seed || 'travel'))
+  return `https://picsum.photos/seed/${s}/${width}/${height}`
 }
 
 // Pexels photo IDs for destinations (royalty-free, from pexels.com).
@@ -403,34 +405,19 @@ const pexelsSlideshowIds = {
   'Norwegian Fjords, Norway': [3582139, 3582140, 2584475],
 }
 
-function getIdOrIds(key) {
-  const multi = pexelsSlideshowIds[key]
-  if (multi && Array.isArray(multi) && multi.length > 0) return multi
-  const single = pexelsPhotoIds[key]
-  if (single != null) return [single]
-  const cachedId = getCachedPexelsId(key)
-  if (cachedId) return [cachedId]
-  const comma = key.lastIndexOf(', ')
-  if (comma > 0) {
-    const country = key.slice(comma + 2).trim()
-    if (country && pexelsPhotoIds[country]) return [pexelsPhotoIds[country]]
-  }
-  return null
-}
-
 /**
  * Returns array of image URLs for slideshow (same destination, multiple photos).
- * Uses slideshow map when available, else single image wrapped in array.
+ * Uses Picsum with deterministic seeds so images load reliably (no hotlink block).
  */
 export function getDestinationImageSlideshowUrls(name, options = {}) {
   const { width = 400, height = 300 } = options
   const key = (name || '').trim()
-  const ids = getIdOrIds(key)
-  if (ids && ids.length > 0) {
-    return ids.map((id) => pexelsUrl(id, width, height))
-  }
-  const seed = encodeURIComponent(key || 'travel')
-  return [`https://picsum.photos/seed/${seed}/${width}/${height}`]
+  const baseSeed = key || 'travel'
+  return [
+    picsumUrl(baseSeed, width, height),
+    picsumUrl(baseSeed + '-2', width, height),
+    picsumUrl(baseSeed + '-3', width, height),
+  ]
 }
 
 export function getDestinationImageSlideshowUrlsForCity(city, country, options = {}) {
@@ -439,25 +426,12 @@ export function getDestinationImageSlideshowUrlsForCity(city, country, options =
 
 /**
  * Returns image URL for a destination (e.g. "Paris, France" or custom name).
- * Uses Pexels (static map or cached from API); then country image; Picsum as last fallback.
+ * Uses Picsum with deterministic seed so the image loads reliably.
  */
 export function getDestinationImageUrl(name, options = {}) {
   const { width = 400, height = 300 } = options
   const key = (name || '').trim()
-  const staticId = pexelsPhotoIds[key]
-  if (staticId) return pexelsUrl(staticId, width, height)
-  const cachedId = getCachedPexelsId(key)
-  if (cachedId) return pexelsUrlFromId(cachedId, width, height)
-  // Fallback: use country image if name looks like "City, Country"
-  const comma = key.lastIndexOf(', ')
-  if (comma > 0) {
-    const country = key.slice(comma + 2).trim()
-    if (country && pexelsPhotoIds[country]) {
-      return pexelsUrl(pexelsPhotoIds[country], width, height)
-    }
-  }
-  const seed = encodeURIComponent(key || 'travel')
-  return `https://picsum.photos/seed/${seed}/${width}/${height}`
+  return picsumUrl(key || 'travel', width, height)
 }
 
 export function getDestinationImageUrlForCity(city, country, options = {}) {
@@ -468,10 +442,5 @@ export function getDestinationImageUrlForCity(city, country, options = {}) {
 export function getCountryImageUrl(countryName, options = {}) {
   const { width = 720, height = 320 } = options
   const key = (countryName || '').trim()
-  const id = pexelsPhotoIds[key]
-  if (id) {
-    return pexelsUrl(id, width, height)
-  }
-  const seed = encodeURIComponent(key || 'world')
-  return `https://picsum.photos/seed/${seed}/${width}/${height}`
+  return picsumUrl(key || 'world', width, height)
 }
