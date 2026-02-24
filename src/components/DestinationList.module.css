@@ -1,0 +1,371 @@
+.section {
+  margin: 0;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.addRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.addBtn {
+  background: var(--surface-hover);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.addBtn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.item {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+.itemImage {
+  width: 120px;
+  min-height: 90px;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface);
+}
+
+.itemMain {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.destName {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dates {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+.dates span + span::before {
+  content: ' · ';
+}
+
+.notes {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.35rem 0 0;
+  line-height: 1.4;
+}
+
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  flex-shrink: 0;
+}
+
+.dateInput {
+  padding: 0.3rem 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 0.25rem 0.4rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.removeBtn:hover {
+  background: rgba(196, 122, 122, 0.15);
+  color: var(--danger);
+}
+
+.empty {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.browseRow {
+  margin-bottom: 0.5rem;
+}
+
+.browseToggle {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.85rem;
+  padding: 0.35rem 0;
+  cursor: pointer;
+}
+
+.browseToggle:hover {
+  text-decoration: underline;
+}
+
+.browsePanel {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.browseModeTabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.browseToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.browseToggleIcon {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.modeTab,
+.modeTabActive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.modeTabIcon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.modeTabActive .modeTabIcon {
+  color: inherit;
+}
+
+.modeTab:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.modeTabActive {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.browseLabel {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.categoryChipsRow {
+  margin-bottom: 0.75rem;
+}
+
+.categoryChipsRow .browseLabel {
+  margin-bottom: 0.5rem;
+}
+
+.categoryChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.categoryChip,
+.categoryChipActive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.categoryChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.categoryChipActive {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.categoryChipIcon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+}
+
+.categoryChipActive .categoryChipIcon {
+  color: inherit;
+}
+
+.countrySelect {
+  width: 100%;
+  max-width: 280px;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.countrySelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.cityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.6rem;
+}
+
+.cityChip {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.cityChip:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.cityChipImg {
+  display: block;
+  width: 100%;
+  height: 64px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--border);
+}
+
+.cityChipLabel {
+  padding: 0.35rem 0.5rem 0.1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cityChipCountry {
+  display: block;
+  padding: 0 0.5rem 0.4rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.cityChip:hover .cityChipLabel {
+  color: var(--accent);
+}
+
+.cityChip:hover .cityChipCountry {
+  color: var(--text);
+}
+
+@media (max-width: 480px) {
+  .item {
+    flex-direction: column;
+  }
+
+  .itemImage {
+    width: 100%;
+    min-height: 140px;
+  }
+
+  .itemActions {
+    flex-wrap: wrap;
+    padding: 0.5rem 0.75rem 0.75rem;
+  }
+}

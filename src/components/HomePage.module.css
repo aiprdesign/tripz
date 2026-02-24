@@ -1,0 +1,584 @@
+.home {
+  padding: 0.5rem 0 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 0.5rem 0;
+}
+
+.heroTitle {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.getStarted {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.getStartedTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.getStartedList {
+  margin: 0;
+  padding-left: 1.35rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.getStartedList li {
+  margin-bottom: 0.4rem;
+}
+
+.getStartedList li:last-child {
+  margin-bottom: 0;
+}
+
+.getStartedList strong {
+  color: var(--text);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+.cardIcon {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.cardIcon svg {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--accent);
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+.card:hover .cardTitle {
+  color: var(--accent);
+}
+
+.card:hover .cardDesc {
+  color: var(--text);
+}
+
+.travelStyleSection {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.travelStyleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.travelStyleCard {
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.travelStyleCard:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  color: var(--accent);
+}
+
+.travelStyleCardActive {
+  padding: 0.85rem 1rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--bg);
+  text-align: left;
+  cursor: pointer;
+}
+
+.travelStyleCardActive:hover {
+  background: var(--accent-dim);
+}
+
+.suggestedLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0.75rem 0 0.5rem;
+}
+
+.suggestedCountryChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.suggestedChip {
+  padding: 0.35rem 0.65rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.suggestedChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.localDataSection {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.myReviewsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.myReviewItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.myReviewItem:last-child {
+  border-bottom: none;
+}
+
+.myReviewDest {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.myReviewStars {
+  color: var(--accent);
+}
+
+.myReviewSnippet {
+  width: 100%;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.noReviewsYet {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+}
+
+.noReviewsYet strong {
+  color: var(--accent);
+}
+
+.magicSection,
+.templatesSection,
+.reviewsSection,
+.peopleLikeSection {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.templateCards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.templateCardWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dayBlock {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.dayTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.dayNote {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.dayActivities {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.dayActivity {
+  margin-bottom: 0.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.dayTime {
+  font-weight: 500;
+  color: var(--muted);
+  min-width: 2.5rem;
+}
+
+.extLink {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-left: 0.25rem;
+}
+
+.extLink:hover {
+  text-decoration: underline;
+}
+
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.reviewCard {
+  margin: 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+
+.reviewText {
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.reviewFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.reviewStars {
+  color: var(--accent);
+}
+
+.peopleLikeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.peopleLikeBlock {
+  padding: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.peopleLikeFrom {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.peopleLikeList {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.peopleLikeList li {
+  margin-bottom: 0.25rem;
+}
+
+.peopleLikeReason {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.promptsSection {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.promptsTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.35rem;
+}
+
+.promptsIntro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 1rem;
+  max-width: 520px;
+}
+
+.promptChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.promptChip {
+  padding: 0.5rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.promptChip:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  color: var(--accent);
+}
+
+.promptChipActive {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.promptChipActive:hover {
+  background: var(--accent-dim);
+  color: var(--bg);
+}
+
+.yourCountrySection {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.yourCountryTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.35rem;
+}
+
+.yourCountryIntro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.yourCountryList {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.yourCountryItem {
+  margin-bottom: 0.25rem;
+}
+
+.exploreCountryBtn {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.exploreCountryBtn:hover {
+  background: var(--accent-dim);
+}
+
+.worldTripSection {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.worldTripChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.worldTripContent {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.worldTripContentIntro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+.cheapestList {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.cheapestItem {
+  margin-bottom: 0.4rem;
+}
+
+.cheapestItem strong {
+  margin-right: 0.25rem;
+}
+
+.inlineLink {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.inlineLink:hover {
+  color: var(--accent-dim);
+}
+
+.rtwTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.rtwList {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.rtwItem {
+  margin-bottom: 0.35rem;
+}
+
+.rtwBudget {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.rtwTotal {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}

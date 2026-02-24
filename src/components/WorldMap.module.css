@@ -1,0 +1,58 @@
+.wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+  text-align: center;
+}
+
+.map {
+  width: 100%;
+  height: auto;
+  min-height: 320px;
+}
+
+.map :global(.rsm-geography) {
+  transition: fill 0.15s ease;
+}
+
+.mapPlaceholder {
+  min-height: 280px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.hintError {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.markerGroup {
+  pointer-events: none;
+}
+
+.destMarker {
+  pointer-events: none;
+}
+
+.markerLabel {
+  font-family: system-ui, sans-serif;
+  pointer-events: none;
+  stroke: var(--bg);
+  stroke-width: 0.3;
+  paint-order: stroke fill;
+}

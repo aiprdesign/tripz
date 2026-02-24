@@ -1,0 +1,126 @@
+.wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.filterRow {
+  padding: 0.6rem 0.75rem 0;
+}
+
+.filterLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.categoryChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.categoryChip,
+.categoryChipActive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.78rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.categoryChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.categoryChipActive {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.categoryChipIcon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+}
+
+.categoryChipActive .categoryChipIcon {
+  color: inherit;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+  padding: 0.35rem 0.75rem 0;
+}
+
+.map {
+  width: 100%;
+  min-height: 320px;
+}
+
+.marker {
+  cursor: pointer;
+}
+
+.marker:hover circle {
+  fill: var(--accent-dim);
+}
+
+.markerLabel {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  stroke: var(--bg);
+  stroke-width: 0.6;
+  paint-order: stroke fill;
+}
+
+.poiList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  padding: 0.75rem;
+}
+
+.poiChip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.poiChip:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.poiName {
+  font-weight: 600;
+}
+
+.poiCats {
+  font-size: 0.7rem;
+  color: var(--muted);
+}

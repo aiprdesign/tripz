@@ -1,0 +1,496 @@
+.wrap {
+  position: relative;
+  margin: 0 -1.5rem;
+}
+
+.backBtn {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.backBtn:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero {
+  position: relative;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 50%);
+  pointer-events: none;
+}
+
+.countryName {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.35rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.heroBlurb {
+  position: relative;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  max-width: 560px;
+  line-height: 1.45;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  padding: 1.5rem 1.5rem 2rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tipBanner {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tipBanner strong {
+  color: var(--accent);
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filterChip {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.filterChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filterChipActive {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.filterSelect {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.filterTypeChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.filterTypeChip,
+.filterTypeChipActive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.78rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.filterTypeChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filterTypeChipActive {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.filterTypeChipIcon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+}
+
+.filterTypeChipActive .filterTypeChipIcon {
+  color: inherit;
+}
+
+.cityMapLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.cityMapSelect {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.cityMapSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.mapSection {
+  margin-bottom: 2rem;
+}
+
+.countryMapWrap {
+  position: relative;
+  min-height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--border);
+}
+
+.countryMapOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 14, 12, 0.85) 0%, rgba(15, 14, 12, 0.6) 100%);
+  pointer-events: none;
+}
+
+.countryMapPins,
+.pinList {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 1.25rem;
+  align-content: flex-start;
+}
+
+.pinList {
+  padding-top: 0.75rem;
+}
+
+.mapPin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+}
+
+.mapPin:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+  transform: scale(1.03);
+}
+
+.mapPinDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.mapPin:hover .mapPinDot {
+  background: var(--bg);
+}
+
+.mapPinLabel {
+  font-weight: 500;
+}
+
+.mapPinTier {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.mapPinTier[data-tier="must"] {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.mapPinTier[data-tier="recommended"] {
+  background: var(--success);
+  color: var(--bg);
+}
+
+.mapPinTier[data-tier="ifTime"] {
+  background: var(--surface-hover);
+  color: var(--muted);
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.sectionIntro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.sectionBody {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+.highlightGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.highlightCard {
+  position: relative;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.tierBadge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+}
+
+.tierBadge[data-tier="must"] {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.tierBadge[data-tier="recommended"] {
+  background: var(--success);
+  color: var(--bg);
+}
+
+.tierBadge[data-tier="ifTime"] {
+  background: var(--muted);
+  color: var(--bg);
+}
+
+.highlightImg {
+  height: 110px;
+  min-height: 110px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface-hover);
+}
+
+.highlightInfo {
+  padding: 0.65rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.highlightCity {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.addBtn {
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  background: var(--accent-dim);
+}
+
+.experienceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.experienceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.experienceItem:last-child {
+  border-bottom: none;
+}
+
+.experienceBullet {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.destGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.6rem;
+}
+
+.destChip {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.destChip:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.destChipImg {
+  height: 56px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--border);
+}
+
+.destChipLabel {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.destChip:hover .destChipLabel {
+  color: var(--accent);
+}
