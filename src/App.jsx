@@ -10,7 +10,7 @@ const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import { countryNames } from './data/destinationsByCountry'
 import { runPendingSync } from './data/communityData'
 import { addDays } from './utils/date'
-import { getCountryFlag } from './utils/countryFlags'
+import { getCountryFlagImageUrl } from './utils/countryFlags'
 import styles from './App.module.css'
 
 const STORAGE_KEY = 'travel-planner-trips'
@@ -153,8 +153,16 @@ function App() {
           <div className={styles.headerRow}>
             <div>
               <h1 className={styles.titleWrap}>
-                {userCountry && getCountryFlag(userCountry) && (
-                  <span className={styles.headerFlag} aria-hidden="true">{getCountryFlag(userCountry)}</span>
+                {userCountry && getCountryFlagImageUrl(userCountry) && (
+                  <img
+                    src={getCountryFlagImageUrl(userCountry)}
+                    alt=""
+                    className={styles.headerFlag}
+                    width={28}
+                    height={21}
+                    loading="eager"
+                    aria-hidden="true"
+                  />
                 )}
                 <Link to="/" className={styles.titleBtn} aria-label="Atripza – Go to homepage">
                   Atripza
@@ -166,16 +174,29 @@ function App() {
             </div>
             <label className={styles.countryLabel}>
               <span className={styles.countryLabelText}>My country</span>
-              <select
-                className={styles.countrySelect}
-                value={userCountry}
-                onChange={(e) => setUserCountry(e.target.value)}
-                aria-label="Select your country"
-              >
-                {countryNames.map((c) => (
-                  <option key={c} value={c}>{getCountryFlag(c) ? `${getCountryFlag(c)} ${c}` : c}</option>
-                ))}
-              </select>
+              <span className={styles.countrySelectWrap}>
+                {userCountry && getCountryFlagImageUrl(userCountry) && (
+                  <img
+                    src={getCountryFlagImageUrl(userCountry, 24)}
+                    alt=""
+                    className={styles.countrySelectFlag}
+                    width={24}
+                    height={18}
+                    loading="eager"
+                    aria-hidden="true"
+                  />
+                )}
+                <select
+                  className={styles.countrySelect}
+                  value={userCountry}
+                  onChange={(e) => setUserCountry(e.target.value)}
+                  aria-label="Select your country"
+                >
+                  {countryNames.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </span>
             </label>
           </div>
         </div>

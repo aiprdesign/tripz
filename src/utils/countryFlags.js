@@ -66,9 +66,21 @@ function isoToFlagEmoji(iso) {
     .join('')
 }
 
+/** Get ISO 2-letter code for a country name. Returns '' if unknown. */
+export function getCountryIso(countryName) {
+  if (!countryName || typeof countryName !== 'string') return ''
+  return COUNTRY_TO_ISO[countryName.trim()] || ''
+}
+
 /** Get flag emoji for a country name used in the app. Returns '' if unknown. */
 export function getCountryFlag(countryName) {
-  if (!countryName || typeof countryName !== 'string') return ''
-  const iso = COUNTRY_TO_ISO[countryName.trim()]
+  const iso = getCountryIso(countryName)
   return iso ? isoToFlagEmoji(iso) : ''
+}
+
+/** URL to a small flag image (e.g. for header). Uses flagcdn.com (free, no key). */
+export function getCountryFlagImageUrl(countryName, width = 32) {
+  const iso = getCountryIso(countryName)
+  if (!iso) return ''
+  return `https://flagcdn.com/w${width}/${iso.toLowerCase()}.png`
 }

@@ -1,0 +1,24 @@
+# Dependencies (do not upload to git)
+node_modules/
+
+# Puppeteer / Chromium (downloaded browser, never commit)
+.local-chromium/
+puppeteer/.local-chromium/
+
+# Build output
+dist/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# OS and editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# Optional
+*.local

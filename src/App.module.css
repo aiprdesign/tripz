@@ -63,6 +63,21 @@
   color: var(--muted);
 }
 
+.countrySelectWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.countrySelectFlag {
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: block;
+}
+
 .countrySelect {
   padding: 0.5rem 0.6rem;
   font-size: 0.9rem;
@@ -87,8 +102,12 @@
 }
 
 .headerFlag {
-  font-size: 1.5rem;
-  line-height: 1;
+  width: 28px;
+  height: 21px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: block;
 }
 
 .titleBtn {
