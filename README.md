@@ -1,4 +1,4 @@
-# Travel Planner
+# Atripza (atripza.com)
 
 A simple, local-first travel planner: create trips, add destinations with dates, and manage packing lists. Data is stored in your browser (localStorage).
 

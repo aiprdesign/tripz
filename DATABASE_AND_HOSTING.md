@@ -1,4 +1,4 @@
-# Database & Hosting Guide — Wander (Travel Planner)
+# Database & Hosting Guide — Atripza (atripza.com)
 
 ## How the database works today
 

@@ -132,7 +132,7 @@ function App() {
                   onClick={() => setView('home')}
                   aria-label="Go to homepage"
                 >
-                  Wander
+                  Atripza
                 </button>
               </h1>
               <p className={styles.subtitle}>
