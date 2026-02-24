@@ -6,6 +6,7 @@ import HomePage from './components/HomePage'
 import AdminPanel from './components/AdminPanel'
 import { IconHome, IconExplore, IconTrips } from './components/Icons'
 import { countryNames } from './data/destinationsByCountry'
+import { runPendingSync } from './data/communityData'
 import { addDays } from './utils/date'
 import styles from './App.module.css'
 
@@ -58,6 +59,11 @@ function App() {
     syncAdminView()
     window.addEventListener('hashchange', syncAdminView)
     return () => window.removeEventListener('hashchange', syncAdminView)
+  }, [])
+
+  // Automatically sync any queued reviews/votes to the database on load (e.g. after offline or API failure)
+  useEffect(() => {
+    runPendingSync()
   }, [])
 
   const createTrip = (tripData, options = {}) => {
