@@ -80,6 +80,15 @@
 
 .titleWrap {
   margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.headerFlag {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .titleBtn {

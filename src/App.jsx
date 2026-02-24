@@ -10,6 +10,7 @@ const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import { countryNames } from './data/destinationsByCountry'
 import { runPendingSync } from './data/communityData'
 import { addDays } from './utils/date'
+import { getCountryFlag } from './utils/countryFlags'
 import styles from './App.module.css'
 
 const STORAGE_KEY = 'travel-planner-trips'
@@ -152,6 +153,9 @@ function App() {
           <div className={styles.headerRow}>
             <div>
               <h1 className={styles.titleWrap}>
+                {userCountry && getCountryFlag(userCountry) && (
+                  <span className={styles.headerFlag} aria-hidden="true">{getCountryFlag(userCountry)}</span>
+                )}
                 <Link to="/" className={styles.titleBtn} aria-label="Atripza – Go to homepage">
                   Atripza
                 </Link>
@@ -169,7 +173,7 @@ function App() {
                 aria-label="Select your country"
               >
                 {countryNames.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c} value={c}>{getCountryFlag(c) ? `${getCountryFlag(c)} ${c}` : c}</option>
                 ))}
               </select>
             </label>
