@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { getCountryGuide } from '../data/countryGuides'
+import { getBasicPhrases } from '../data/basicPhrases'
 import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
 import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getCategoriesForDestination, categoryNames, matchesAnyCategory } from '../data/destinationsByCategory'
@@ -189,6 +190,41 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>When to go</h2>
           <p className={styles.sectionBody}>{guide.bestTime}</p>
+        </section>
+
+        <section className={styles.section} aria-labelledby="culture-facts-heading">
+          <h2 id="culture-facts-heading" className={styles.sectionTitle}>Know before you go — culture & etiquette</h2>
+          <p className={styles.sectionIntro}>Things most visitors don’t know but every tourist should: tipping, gestures, dress, and local norms.</p>
+          <ul className={styles.cultureFactsList}>
+            {guide.cultureFacts.map((fact, i) => (
+              <li key={i} className={styles.cultureFactItem}>{fact}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className={styles.section} aria-labelledby="phrases-heading">
+          <h2 id="phrases-heading" className={styles.sectionTitle}>Useful phrases</h2>
+          <p className={styles.sectionIntro}>Basic words in the local language with approximate pronunciation. A little goes a long way.</p>
+          <div className={styles.phrasesTableWrap}>
+            <table className={styles.phrasesTable}>
+              <thead>
+                <tr>
+                  <th scope="col">English</th>
+                  <th scope="col">Local</th>
+                  <th scope="col">Say it like</th>
+                </tr>
+              </thead>
+              <tbody>
+                {getBasicPhrases(guide.country).map((row, i) => (
+                  <tr key={i}>
+                    <td>{row.en}</td>
+                    <td className={styles.phrasesLocal}>{row.local}</td>
+                    <td className={styles.phrasesPron}>{row.pron}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         {showMust && (

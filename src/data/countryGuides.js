@@ -13,6 +13,13 @@ const GUIDES = {
       'Climb Mont Saint-Michel at high tide',
       'Ski or hike in Chamonix',
     ],
+    cultureFacts: [
+      'Always say "Bonjour" when entering a shop or café—skipping it is considered rude.',
+      'Dining is slower here: rushing a meal or asking for the bill too soon can seem impolite.',
+      'Keep your hands on the table (wrists visible) during meals; hands in lap can look suspicious.',
+      'Tipping is optional; service is included. Rounding up or leaving small change is enough.',
+      'Don’t expect a smile from strangers—it’s not coldness, just reserve until you know someone.',
+    ],
   },
   Japan: {
     blurb: 'Ancient temples and neon cities, cherry blossoms and bullet trains. Japan balances tradition and future like nowhere else.',
@@ -23,6 +30,13 @@ const GUIDES = {
       'Soak in an onsen in Hakone',
       'See Mount Fuji from the Shinkansen',
       'Stay in a ryokan and wear a yukata',
+    ],
+    cultureFacts: [
+      'Never stick chopsticks upright in rice—it resembles funeral offerings.',
+      'Slurping noodles is polite and shows you’re enjoying the meal.',
+      'Remove shoes before entering homes, many restaurants, and some temples; look for the step up.',
+      'Tipping is not customary and can cause confusion; excellent service is the norm.',
+      'Avoid eating or drinking while walking; it’s considered messy and disrespectful.',
     ],
   },
   Italy: {
@@ -35,6 +49,13 @@ const GUIDES = {
       'See the Sistine Chapel in Rome',
       'Wander Cinque Terre villages',
     ],
+    cultureFacts: [
+      'Cover shoulders and knees in churches; many enforce a dress code.',
+      'Cappuccino is a morning drink—ordering it after lunch can mark you as a tourist.',
+      'Don’t ask for parmesan on seafood pasta; it’s often considered wrong for the dish.',
+      'A small "coperto" (cover charge) on the bill is normal; tipping is optional (round up).',
+      'Dinner starts late: 8–9 p.m. is normal; earlier can mean tourist-only spots.',
+    ],
   },
   Spain: {
     blurb: 'Siesta, tapas, and fiesta. From Gaudí to flamenco and sun-soaked islands, Spain never stops giving.',
@@ -45,6 +66,13 @@ const GUIDES = {
       'Walk the Camino de Santiago',
       'Party in Ibiza or relax in Mallorca',
       'See flamenco in Seville',
+    ],
+    cultureFacts: [
+      'Lunch is around 2–4 p.m. and dinner often 9–11 p.m.; many shops close for siesta.',
+      'Tapas are often free with a drink in the south; in tourist areas you’ll usually pay.',
+      'Spaniards use two surnames (father’s + mother’s); don’t assume the first is "family name."',
+      'Greet with two kisses (cheek to cheek) in social settings; handshakes for business.',
+      'Don’t expect punctuality for social plans—"ahora" (now) can mean in a while.',
     ],
   },
   'United Kingdom': {
@@ -57,6 +85,13 @@ const GUIDES = {
       'Visit Stonehenge at sunrise',
       'Pub-crawl in Dublin or Belfast',
     ],
+    cultureFacts: [
+      'Queue properly—jumping the line is one of the quickest ways to annoy Brits.',
+      '"Sorry" is used constantly, often to mean "excuse me" or to soften requests.',
+      'Don’t assume "England" means the whole UK; Scotland, Wales, and Northern Ireland are distinct.',
+      'In pubs you often order (and pay) at the bar; table service isn’t standard.',
+      'Tea is serious: "builder’s tea" is strong with milk; declining can be fine but expect it offered.',
+    ],
   },
   Thailand: {
     blurb: 'Temples, street food, and beaches. Smiles, spice, and value that keep travellers coming back.',
@@ -67,6 +102,13 @@ const GUIDES = {
       'Island-hop in the Andaman Sea',
       'Float in a longtail boat in Krabi',
       'Full moon party or quiet beach in Koh Samui',
+    ],
+    cultureFacts: [
+      'Don’t touch the head (including a child’s)—the head is considered sacred.',
+      'Pointing with a finger or showing the sole of your foot is rude.',
+      'Remove shoes before entering homes and many temples.',
+      'The king and royal family are deeply respected; avoid criticism or disrespect.',
+      'Wai (palms together, slight bow) is the traditional greeting; return it appropriately.',
     ],
   },
   Greece: {
@@ -79,6 +121,13 @@ const GUIDES = {
       'Eat fresh fish on a harbour',
       'Explore ancient Delphi or Meteora',
     ],
+    cultureFacts: [
+      'A nod or slight backward tilt of the head means "no"; don’t confuse it with a yes.',
+      'Don’t wave with an open palm (fingers spread)—it’s an offensive gesture (moutza).',
+      'Refusing food or drink when offered at a home can seem rude; accept at least a little.',
+      'Dinner is often late (9–10 p.m.); lunch is the big meal for many families.',
+      'Tipping: round up or leave 5–10%; service is sometimes included but extra is appreciated.',
+    ],
   },
   Portugal: {
     blurb: 'Tiles, trams, and dramatic coastlines. Underrated food, wine, and warmth without the crowds.',
@@ -89,6 +138,13 @@ const GUIDES = {
       'Surf or relax on the Algarve',
       'Visit Sintra’s palaces',
       'Hike or whale-watch in the Azores',
+    ],
+    cultureFacts: [
+      'Coffee culture is strong: "bica" (Lisbon) or "cimbalino" (Porto) means espresso.',
+      'Don’t confuse Portugal with Spain—they’re separate languages and identities.',
+      'Dinner is often 8–9 p.m.; lunch is the main meal for many.',
+      'Tipping is optional; rounding up is common; 5–10% in restaurants is generous.',
+      'Personal space is smaller; touching during conversation is normal among friends.',
     ],
   },
   Iceland: {
@@ -101,6 +157,13 @@ const GUIDES = {
       'Walk on a glacier',
       'See waterfalls and black-sand beaches',
     ],
+    cultureFacts: [
+      'Shower (without swimsuit) before entering pools and hot springs; it’s mandatory and checked.',
+      'Don’t walk on moss—it takes decades to grow and is fragile.',
+      'First names are used almost everywhere; formality is low.',
+      'Tipping is not expected; wages are high and service is included.',
+      'Off-road driving is illegal; stick to marked roads (F-roads need 4×4 and care).',
+    ],
   },
   Australia: {
     blurb: 'Beaches, reefs, and outback. Laid-back cities, unique wildlife, and distances worth every mile.',
@@ -111,6 +174,13 @@ const GUIDES = {
       'Road-trip the Great Ocean Road',
       'Meet wildlife on Kangaroo Island',
       'Explore Uluru at sunset',
+    ],
+    cultureFacts: [
+      'Uluru and many sacred sites: don’t climb, touch, or photograph where it’s forbidden; respect signs.',
+      'Informal and direct communication is normal; titles and formality are minimal.',
+      'Tipping is not expected; rounding up or 10% for good service is fine.',
+      'Distances are huge—don’t underestimate drive times; fuel and water in remote areas matter.',
+      '"No worries" and "mate" are common; taking the piss (light teasing) is often friendly.',
     ],
   },
   Mexico: {
@@ -123,6 +193,13 @@ const GUIDES = {
       'Explore Oaxaca’s markets and mezcal',
       'Relax on Playa del Carmen or Cabo',
     ],
+    cultureFacts: [
+      'Haggling is normal in markets; stay friendly—it’s part of the interaction.',
+      'Lunch (comida) is the main meal, often 2–4 p.m.; dinner can be light and late.',
+      'Don’t assume everyone speaks English; a few phrases in Spanish go a long way.',
+      'Tipping 10–15% is expected in restaurants; small tips for guides and drivers are appreciated.',
+      'Avoid discussing drugs or cartels; keep convos positive and respectful.',
+    ],
   },
   Peru: {
     blurb: 'Inca trails, Amazon, and Andean peaks. Machu Picchu is just the start of an unforgettable journey.',
@@ -133,6 +210,13 @@ const GUIDES = {
       'Explore Cusco and Sacred Valley',
       'Cruise or stay in the Amazon',
       'Taste ceviche in Lima',
+    ],
+    cultureFacts: [
+      'Altitude in Cusco and the highlands affects many; take it easy the first day or two.',
+      'Coca tea is legal and used for altitude; don’t take coca leaves home—illegal elsewhere.',
+      'Lunch is the main meal; dinner is often lighter and earlier than in Spain.',
+      'Bargaining is common in markets; stay polite; fixed prices in shops and restaurants.',
+      'Respect sacred sites and local guides; don’t remove stones or touch restricted areas.',
     ],
   },
   'New Zealand': {
@@ -145,6 +229,13 @@ const GUIDES = {
       'Visit Hobbiton',
       'Stargaze in Tekapo’s dark sky reserve',
     ],
+    cultureFacts: [
+      'Māori culture is central: learn a few phrases, respect marae (meeting grounds) and protocols.',
+      'Don’t confuse NZ with Australia—Kiwis take the distinction seriously.',
+      'Tipping is not expected; excellent service might get a round-up or small tip.',
+      'Leave no trace: nature is treasured; stick to tracks and take rubbish with you.',
+      'Informal and egalitarian; first names and casual dress are normal.',
+    ],
   },
   Vietnam: {
     blurb: 'Pho, lanterns, and limestone karsts. Bustling cities, serene bays, and food that changes the way you travel.',
@@ -156,6 +247,13 @@ const GUIDES = {
       'Ride a scooter in Ho Chi Minh City',
       'Trek Sapa’s rice terraces',
     ],
+    cultureFacts: [
+      'Don’t touch someone’s head; pass items with both hands when possible.',
+      'Bargaining is expected in markets; stay calm and good-humoured.',
+      'Remove shoes before entering homes and some temples.',
+      'Avoid public criticism of the government or sensitive history.',
+      'Eat with chopsticks; rest them on the bowl, not upright in rice.',
+    ],
   },
   Morocco: {
     blurb: 'Souks, Sahara, and mint tea. A short hop from Europe into another world of colour and hospitality.',
@@ -166,6 +264,13 @@ const GUIDES = {
       'Wander the blue streets of Chefchaouen',
       'Haggle in Fes souks',
       'Surf or relax in Essaouira',
+    ],
+    cultureFacts: [
+      'Accept mint tea when offered—refusing can seem rude; use your right hand to receive.',
+      'Haggling in souks is expected; start low, stay friendly, walk away if needed.',
+      'Dress modestly, especially outside tourist areas and near religious sites.',
+      'Use the right hand for eating and handing things; the left is considered unclean.',
+      'Ramadan: eating/drinking in public during daylight can offend; check dates.',
     ],
   },
   India: {
@@ -182,6 +287,13 @@ const GUIDES = {
       'Backwaters and ayurveda in Kerala',
       'Hampi and Pattadakal (ruins and temples)',
     ],
+    cultureFacts: [
+      'Use the right hand for eating and giving; the left is considered unclean.',
+      'Remove shoes before temples and many homes; dress modestly (shoulders and knees covered).',
+      'Don’t touch people or sacred objects with your feet; don’t point feet at people or shrines.',
+      'Head wobble can mean yes, okay, or "I hear you"—context matters.',
+      'Bargaining is normal in markets; fixed prices in malls and many restaurants.',
+    ],
   },
   'United States': {
     blurb: 'From coast to coast: world-class cities, national parks, and epic road trips. One country, endless ways to explore.',
@@ -194,6 +306,13 @@ const GUIDES = {
       'Music and food in Nashville or Austin',
       'Hike Glacier, Acadia, Great Smoky Mountains',
     ],
+    cultureFacts: [
+      'Tipping is expected: 15–20% in restaurants; a few dollars for bartenders, valet, and guides.',
+      'States differ a lot in laws (alcohol, cannabis, guns)—check local rules.',
+      'Personal space is larger; avoid touching strangers; handshakes for introductions.',
+      'Service and sales tax are often not included in displayed prices.',
+      'Politics and religion can be sensitive; read the room before diving in.',
+    ],
   },
   Canada: {
     blurb: 'Wilderness, cities, and kindness. Lakes, mountains, and a quality of life that draws visitors back.',
@@ -204,6 +323,13 @@ const GUIDES = {
       'See Niagara Falls',
       'Whale-watch on the coasts',
       'Experience Toronto or Vancouver',
+    ],
+    cultureFacts: [
+      'Don’t confuse Canada with the US—Canadians are proud of a distinct identity.',
+      'Quebec: French is the official language; a few French phrases are appreciated.',
+      'Tipping 15–20% in restaurants is standard; similar to the US in service culture.',
+      'Apologising is cultural ("sorry" often means "excuse me"); politeness is valued.',
+      'Indigenous peoples and land acknowledgements are increasingly part of public life.',
     ],
   },
   Turkey: {
@@ -216,6 +342,13 @@ const GUIDES = {
       'Visit Ephesus at dawn',
       'Sail the Turquoise Coast',
     ],
+    cultureFacts: [
+      'Remove shoes before entering mosques and many homes; dress modestly at religious sites.',
+      'Haggling in bazaars is expected; stay friendly and walk away if the price doesn’t work.',
+      'Tea (çay) is offered constantly; accepting is a sign of respect and connection.',
+      'Don’t confuse Turkey with the Middle East or "Arab"—Turkish identity and language are distinct.',
+      'Tipping: round up or 5–10%; small tips for guides and hamam attendants are appreciated.',
+    ],
   },
   Egypt: {
     blurb: 'Pyramids, Nile, and pharaohs. The cradle of civilisation still delivers wonder at every turn.',
@@ -226,6 +359,13 @@ const GUIDES = {
       'Explore Karnak and Valley of the Kings',
       'Dive the Red Sea',
       'Wander Cairo’s Khan el-Khalili',
+    ],
+    cultureFacts: [
+      'Bargaining is normal in souks and with many vendors; stay calm and polite.',
+      'Use the right hand for eating and handing things; left is considered unclean.',
+      'Dress modestly, especially at religious sites and outside tourist zones.',
+      'Avoid public criticism of the government or sensitive political topics.',
+      'Tipping (baksheesh) is widespread: small amounts for services, guides, and restroom attendants.',
     ],
   },
   'South Africa': {
@@ -238,6 +378,13 @@ const GUIDES = {
       'Wine-taste in Stellenbosch',
       'See penguins at Boulders Beach',
     ],
+    cultureFacts: [
+      'Don’t call it "Africa" as if one country—South Africa is one of 54 nations.',
+      'Tipping 10–15% in restaurants is standard; tip guides and safari staff as well.',
+      'Safety varies by area; follow local advice on where to walk and after dark.',
+      'History (apartheid, colonialism) is sensitive; listen and be respectful.',
+      '"Braai" (barbecue) is a big part of social life; accept invites when you can.',
+    ],
   },
   Netherlands: {
     blurb: 'Canals, tulips, and cycling. Compact, charming, and easy to fall in love with.',
@@ -248,6 +395,13 @@ const GUIDES = {
       'See Van Goghs and Rembrandts',
       'Explore Giethoorn by boat',
       'Try stroopwafels and bitterballen',
+    ],
+    cultureFacts: [
+      'Don’t call the country "Holland" in front of everyone—Holland is two provinces; Netherlands is the country.',
+      'Directness is normal; it’s not rudeness—Dutch value honest, clear communication.',
+      'Tipping is optional; rounding up or a few euros is fine; service is included in mindset.',
+      'Cyclists have priority; don’t walk in bike lanes; watch for bikes when crossing.',
+      'Split the bill is common; "going Dutch" is the norm.',
     ],
   },
   Germany: {
@@ -260,6 +414,13 @@ const GUIDES = {
       'Romantic Road and Heidelberg',
       'Christmas markets in winter',
     ],
+    cultureFacts: [
+      'Punctuality is important; being late without notice is considered disrespectful.',
+      'Don’t joke about the Nazi era or WWII; it’s a serious and sensitive subject.',
+      'Tipping: round up or 5–10%; saying the total including tip when paying is common.',
+      'Look people in the eye when toasting—not doing so can invite a joke about bad luck.',
+      'Recycling and rules (e.g. quiet hours) are taken seriously; follow local signs.',
+    ],
   },
   Croatia: {
     blurb: 'Adriatic coast, Game of Thrones walls, and island-hopping. Europe’s secret (not for long) is out.',
@@ -270,6 +431,13 @@ const GUIDES = {
       'Plitvice Lakes National Park',
       'Sail the Dalmatian coast',
       'Wine and truffles in Istria',
+    ],
+    cultureFacts: [
+      'Don’t confuse Croatia with "former Yugoslavia" in conversation; identity is Croatian.',
+      'Tipping: round up or 5–10%; not always expected but appreciated in restaurants.',
+      'Coffee culture is strong; sitting with one drink for a while is normal.',
+      'War (1990s) is a sensitive topic; listen rather than assume or compare.',
+      'Swimwear only on the beach; cover up when walking through towns.',
     ],
   },
 }
@@ -289,6 +457,15 @@ function defaultExperiences(country, cities) {
     : [`Discover ${country}’s highlights`, 'Taste local food', 'Meet locals', 'See iconic sights', 'Go off the beaten path']
 }
 
+function defaultCultureFacts() {
+  return [
+    'Learn a few words in the local language—hello, please, and thank you go a long way.',
+    'Check local dress codes for religious sites and conservative areas.',
+    'Tipping customs vary; ask or observe what locals do.',
+    'Respect queues and local etiquette; when in doubt, follow others.',
+  ]
+}
+
 /** Get full guide for a country; falls back to defaults if no custom guide */
 export function getCountryGuide(countryName) {
   const cities = destinationsByCountry[countryName] || []
@@ -301,6 +478,7 @@ export function getCountryGuide(countryName) {
     blurb: custom?.blurb ?? defaultBlurb(countryName),
     bestTime: custom?.bestTime ?? defaultBestTime(),
     experiences: custom?.experiences ?? defaultExperiences(countryName, cities),
+    cultureFacts: custom?.cultureFacts ?? defaultCultureFacts(),
     highlights: cities.slice(0, 8),
     allDestinations: cities,
     mustVisit,

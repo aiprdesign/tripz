@@ -453,6 +453,90 @@
   flex-shrink: 0;
 }
 
+.cultureFactsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cultureFactItem {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.cultureFactItem::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.cultureFactItem:last-child {
+  border-bottom: none;
+}
+
+.phrasesTableWrap {
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.phrasesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.phrasesTable th,
+.phrasesTable td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.phrasesTable th {
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.phrasesTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.phrasesTable tbody tr:hover td {
+  background: var(--surface-hover, rgba(0, 0, 0, 0.03));
+}
+
+.phrasesLocal {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.phrasesPron {
+  color: var(--muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .phrasesTable th,
+  .phrasesTable td {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  .phrasesPron {
+    white-space: normal;
+  }
+}
+
 .destGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
