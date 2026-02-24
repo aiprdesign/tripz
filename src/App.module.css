@@ -294,6 +294,16 @@
   margin-right: auto;
 }
 
+.footerDisclaimer {
+  margin: 0 0 0.75rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
 .footerViews {
   margin: 0 0 0.5rem;
 }

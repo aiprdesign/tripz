@@ -387,6 +387,9 @@ function App() {
 
       <footer className={styles.footer}>
         <p className={styles.footerTagline}>No account needed to use this site. Made for the traveling community.</p>
+        <p className={styles.footerDisclaimer}>
+          This site is for general information only. We do not make any claims about accuracy, completeness, or suitability of the content. Nothing here is professional travel, legal, or health advice. Always verify important information with official sources and use this site at your own risk.
+        </p>
         {siteViews != null && (
           <p className={styles.footerViews}>Total visits: <span className={styles.footerViewsCount}>{siteViews.toLocaleString()}</span></p>
         )}
