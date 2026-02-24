@@ -8,6 +8,7 @@ const Explore = lazy(() => import('./components/Explore'))
 const HomePage = lazy(() => import('./components/HomePage'))
 const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import { countryNames } from './data/destinationsByCountry'
+import { loadUserProfile, saveUserProfile, RACE_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS } from './data/userProfileOptions'
 import { runPendingSync } from './data/communityData'
 import { initGlobalClickTracker, recordCountryView } from './utils/clickTracker'
 import { addDays } from './utils/date'
@@ -44,6 +45,7 @@ function App() {
   const [trips, setTrips] = useState(() => loadTrips())
   const [showForm, setShowForm] = useState(false)
   const [userCountry, setUserCountry] = useState(() => loadUserCountry())
+  const [userProfile, setUserProfile] = useState(() => loadUserProfile())
   const [siteViews, setSiteViews] = useState(null)
   const [headerFlagError, setHeaderFlagError] = useState(false)
   const [selectFlagError, setSelectFlagError] = useState(false)
@@ -59,6 +61,10 @@ function App() {
       localStorage.setItem(USER_COUNTRY_KEY, userCountry)
     } catch {}
   }, [userCountry])
+
+  useEffect(() => {
+    saveUserProfile(userProfile)
+  }, [userProfile])
 
   useEffect(() => {
     setHeaderFlagError(false)
@@ -235,6 +241,27 @@ function App() {
                 </select>
               </span>
             </label>
+            <div className={styles.profileRow}>
+              <label className={styles.profileLabel}>
+                <span className={styles.profileLabelText}>Race</span>
+                <select className={styles.profileSelect} value={userProfile.race} onChange={(e) => setUserProfile((p) => ({ ...p, race: e.target.value }))} aria-label="Select race">
+                  {RACE_OPTIONS.map((o) => (<option key={o.value || 'none'} value={o.value}>{o.label}</option>))}
+                </select>
+              </label>
+              <label className={styles.profileLabel}>
+                <span className={styles.profileLabelText}>Age</span>
+                <select className={styles.profileSelect} value={userProfile.age} onChange={(e) => setUserProfile((p) => ({ ...p, age: e.target.value }))} aria-label="Select age range">
+                  {AGE_OPTIONS.map((o) => (<option key={o.value || 'none'} value={o.value}>{o.label}</option>))}
+                </select>
+              </label>
+              <label className={styles.profileLabel}>
+                <span className={styles.profileLabelText}>Gender</span>
+                <select className={styles.profileSelect} value={userProfile.gender} onChange={(e) => setUserProfile((p) => ({ ...p, gender: e.target.value }))} aria-label="Select gender">
+                  {GENDER_OPTIONS.map((o) => (<option key={o.value || 'none'} value={o.value}>{o.label}</option>))}
+                </select>
+              </label>
+            </div>
+            </div>
           </div>
         </div>
         <nav className={styles.nav} aria-label="Main">
@@ -318,6 +345,7 @@ function App() {
                 onCreateTrip={createTrip}
                 initialCountry={null}
                 onClearInitialCountry={() => {}}
+                userProfile={userProfile}
               />
             }
           />
@@ -330,6 +358,7 @@ function App() {
                 onCreateTrip={createTrip}
                 initialCountryFromUrl
                 onClearInitialCountry={() => {}}
+                userProfile={userProfile}
               />
             }
           />

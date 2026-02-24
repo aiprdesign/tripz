@@ -23,12 +23,12 @@ export async function handler(event, context) {
 
   try {
     const store = getStore({ name: STORE_NAME })
-    const raw = await store.get(KEY, { type: 'json' })
-    const data = raw && typeof raw === 'object' ? raw : {}
-    let totalClicks = Math.max(0, Number(data.totalClicks) || 0)
-    const byCountry = data.byCountry && typeof data.byCountry === 'object' ? { ...data.byCountry } : {}
 
     if (event.httpMethod === 'GET') {
+      const raw = await store.get(KEY, { type: 'json' })
+      const data = raw && typeof raw === 'object' ? raw : {}
+      const totalClicks = Math.max(0, Number(data.totalClicks) || 0)
+      const byCountry = data.byCountry && typeof data.byCountry === 'object' ? data.byCountry : {}
       return {
         statusCode: 200,
         headers: corsHeaders,
@@ -41,11 +41,28 @@ export async function handler(event, context) {
       const country = body.country != null ? String(body.country).trim() : null
       const batch = Math.max(0, Math.min(1000, Number(body.totalClicks) || 0))
       const add = batch > 0 ? batch : 1
-      totalClicks += add
-      if (country) {
-        byCountry[country] = (byCountry[country] || 0) + 1
+
+      const doWrite = async (existingData, etag) => {
+        let totalClicks = Math.max(0, Number(existingData?.totalClicks) || 0)
+        const byCountry = existingData?.byCountry && typeof existingData.byCountry === 'object' ? { ...existingData.byCountry } : {}
+        totalClicks += add
+        if (country) {
+          byCountry[country] = (byCountry[country] || 0) + 1
+        }
+        const options = etag != null ? { onlyIfMatch: etag } : {}
+        return store.setJSON(KEY, { totalClicks, byCountry }, options)
       }
-      await store.setJSON(KEY, { totalClicks, byCountry })
+
+      let result = await store.getWithMetadata(KEY, { type: 'json' })
+      let data = result?.data && typeof result.data === 'object' ? result.data : {}
+      let etag = result?.etag ?? undefined
+      let writeResult = await doWrite(data, etag)
+      if (writeResult.modified === false && etag != null) {
+        result = await store.getWithMetadata(KEY, { type: 'json' })
+        data = result?.data && typeof result.data === 'object' ? result.data : {}
+        etag = result?.etag ?? undefined
+        writeResult = await doWrite(data, etag)
+      }
       return { statusCode: 200, headers: corsHeaders, body: JSON.stringify({ ok: true }) }
     }
   } catch (err) {

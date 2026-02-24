@@ -173,6 +173,52 @@ const LAWS_ESTIMATE = {
   'United Kingdom': 125000, 'United States': 195000, Vietnam: 85000,
 }
 
+/** USA: states often cited as among the most regulated (business, environment, labor, consumer, etc.). */
+export const USA_MOST_REGULATED_STATES = [
+  'California', 'New York', 'New Jersey', 'Massachusetts', 'Hawaii', 'Illinois', 'Connecticut', 'Washington',
+]
+
+/** USA-only: note that each state has its own laws. */
+export const USA_LAWS_SUBNATIONAL_NOTE = 'Each state has its own laws—federal rules apply nationwide, but state and local rules vary a lot (e.g. alcohol, cannabis, guns, employment). Check the state you’re in.'
+
+/** Short note on attitude towards foreigners (optional; complements friendlinessForeigners). */
+const ATTITUDE_FOREIGNERS_NOTE = {
+  Japan: 'Generally polite and helpful; tourists are welcomed. In rural areas or with no Japanese, expect some language barrier; fewer stares than in some other destinations.',
+  China: 'Mixed in big cities; tourists often welcomed in designated areas. Outside main hubs, foreigners can draw attention; follow local norms and avoid sensitive topics.',
+  'South Korea': 'Tourists generally welcomed, especially in Seoul and Busan. Older generations may be less used to diversity; younger people and tourist areas are used to foreigners.',
+  India: 'Hospitality is strong; tourists often welcomed. Staring and curiosity are common. Scams targeting foreigners occur in tourist hubs—stay alert without assuming ill intent.',
+  Egypt: 'Tourists are economically important; many locals are friendly. Persistent touts and occasional harassment (especially for women) occur; dress modestly and be firm with boundaries.',
+  Russia: 'Varies by city and context. In Moscow/St Petersburg, tourists are common. Outside major cities, foreigners may attract curiosity; avoid political discussions.',
+  'United Arab Emirates': 'Very used to foreigners and diverse residents. Generally welcoming; respect local laws and dress codes.',
+  'United States': 'Varies by region; most tourist areas are diverse and used to visitors. Some rural areas less so; racial dynamics differ by place—research and trust your instincts.',
+  France: 'Paris and major cities are used to tourists; service can feel brusque. Outside cities, smaller towns may be less used to non-white or non-European visitors.',
+  Germany: 'Generally welcoming to tourists; big cities are multicultural. Rare incidents of hostility reported; most visitors have no issues.',
+  Italy: 'Tourist areas very used to visitors. In the south and smaller towns, stares or curiosity possible; generally not hostile.',
+  Brazil: 'Generally warm and welcoming. Safety varies by area regardless of race; tourists of all backgrounds should take normal precautions.',
+  'South Africa': 'Complex; tourism is valued. Racial dynamics from apartheid era persist; most visitors have positive experiences in tourist areas.',
+  Thailand: 'Very used to tourists; generally friendly and welcoming. Scams exist in tourist zones; overall attitude to foreigners is positive.',
+  Vietnam: 'Tourists welcomed; war legacy rarely affects modern visitor experience. Curiosity rather than hostility in rural areas.',
+  Morocco: 'Used to tourists; hospitality is valued. Touts and hassle in medinas can feel intense; generally not hostile to foreigners.',
+  Turkey: 'Tourists welcomed in most areas. Istanbul and coast are used to diversity; eastern regions less so. Political topics best avoided.',
+}
+
+/** Race-specific precautions per country (key = country, value = { [race]: string }). */
+const RACE_PRECAUTIONS = {
+  'United States': { Black: 'Racial dynamics vary greatly by region. Most tourist areas are diverse; research your destinations. Avoid assuming all areas are equally welcoming; trust local advice and your instincts.', 'East Asian': 'Asian Americans report varying experiences by region. Tourist hubs and coastal cities are generally fine; isolated incidents of hostility have been reported—stay aware, not fearful.', 'South Asian': 'Diverse cities are used to South Asian visitors. In less diverse areas you may get curiosity; generally no specific precautions beyond normal travel safety.' },
+  China: { Black: 'Foreigners of all backgrounds can draw attention outside major hubs. In big cities, African students and travelers exist; in rural areas, staring or curiosity is more common. Not typically hostile.', 'East Asian': 'Non-Chinese East Asians may be assumed to be Chinese until you speak; generally no specific race-based precautions.' },
+  Japan: { Black: 'Tourists are generally welcomed. Occasional staring or curiosity in rural areas; rare reports of refusal of service. Major cities are used to diverse visitors.', 'East Asian': 'Korean and other East Asian visitors are common; generally no specific precautions.' },
+  France: { Black: 'Paris and big cities are multicultural. In smaller towns, Black travelers sometimes report extra scrutiny or awkwardness; rarely hostile. Police checks can be more frequent for non-white people.', 'North African': 'Complex dynamics; identity checks and discrimination reported by some. Tourist areas generally fine; be aware of tensions in certain suburbs.' },
+  Italy: { Black: 'Tourist areas see many visitors of all backgrounds. Isolated incidents of racism reported; overall, most visitors have no issues. South and rural areas may show more curiosity.' },
+  'United Arab Emirates': { Black: 'Very diverse resident population; African and other Black visitors are common. Generally welcoming; follow local laws and dress codes.' },
+  India: { Black: 'Hospitality is strong; curiosity and staring common. Some travelers report extra attention (positive or negative). Tourist circuit is used to international visitors.' },
+  Egypt: { Black: 'African and Black tourists visit; touts can be persistent. No specific hostility reported; same general advice as for all travelers (dress modestly, be firm with touts).' },
+  Russia: { Black: 'Moscow and St Petersburg are more cosmopolitan; non-white travelers have reported occasional stares or curiosity. Rare incidents of hostility; avoid confrontations.' },
+  Brazil: { Black: 'Brazil is racially diverse; many Brazilians are Black or mixed. Generally welcoming; same safety advice applies to everyone. Racial dynamics differ from the US.' },
+  'South Africa': { White: 'Post-apartheid dynamics; most tourist areas are fine. Be mindful of economic inequality and avoid insensitive comments.', Black: 'Fellow African and diaspora visitors are welcomed. Tourist areas are used to international visitors of all backgrounds.' },
+  Germany: { Black: 'Big cities are diverse; most visitors have no issues. Rare reports of hostility in eastern regions; generally welcoming.' },
+  'United Kingdom': { Black: 'Very diverse, especially in cities. Most visitors report no race-based issues; same general safety and awareness as elsewhere.' },
+}
+
 /** Get safety, friendliness, laws, mental health prevalence, risk likelihood, gauge levels, and estimated laws for a country. */
 export function getCountryVisitorInfo(countryName) {
   const key = countryName?.trim()
@@ -190,6 +236,8 @@ export function getCountryVisitorInfo(countryName) {
       lawsEstimate: 100000,
       safetyWomenTips: getSafetyWomenTips(DEFAULT.safetyWomen),
       safetyForeignersTips: getSafetyForeignersTips(DEFAULT.safetyForeigners),
+      attitudeForeignersNote: null,
+      racePrecautions: null,
     }
   }
   const row = DATA[key]
@@ -201,6 +249,7 @@ export function getCountryVisitorInfo(countryName) {
   const mentalHealthNote = row?.mentalHealthNote ?? DEFAULT.mentalHealthNote
   const risks = RISK_DATA[key] || RISK_DEFAULT
   const lawsEstimate = LAWS_ESTIMATE[key] ?? 100000
+  const isUSA = key === 'United States'
   return {
     safetyWomen,
     safetyForeigners,
@@ -217,6 +266,10 @@ export function getCountryVisitorInfo(countryName) {
     friendlinessGauge: friendlinessToGauge(friendlinessForeigners),
     lawsGauge: lawsToGauge(laws),
     lawsEstimate,
+    lawsSubnationalNote: isUSA ? USA_LAWS_SUBNATIONAL_NOTE : null,
+    mostRegulatedStates: isUSA ? USA_MOST_REGULATED_STATES : null,
+    attitudeForeignersNote: ATTITUDE_FOREIGNERS_NOTE[key] || null,
+    racePrecautions: RACE_PRECAUTIONS[key] && typeof RACE_PRECAUTIONS[key] === 'object' ? RACE_PRECAUTIONS[key] : null,
     safetyWomenTips: getSafetyWomenTips(safetyWomen, key),
     safetyForeignersTips: getSafetyForeignersTips(safetyForeigners, key),
   }
@@ -281,3 +334,17 @@ const RISK_DEFAULT = { lifetimeRisk: 'Moderate', cancerRisk: 'Moderate', acciden
 
 /** All countries we have data for (same as app country list). */
 export { countryNames }
+
+/** Fields users can suggest corrections for (value = key in visitor info). */
+export const STAT_FIELDS_FOR_SUGGESTIONS = [
+  { value: 'safetyWomen', label: 'Safety for women' },
+  { value: 'safetyForeigners', label: 'Safety for foreigners' },
+  { value: 'friendlinessForeigners', label: 'Friendliness to foreigners' },
+  { value: 'laws', label: 'Laws (Fewer / Many / Too many)' },
+  { value: 'mentalHealthPct', label: 'Mental health %' },
+  { value: 'mentalHealthNote', label: 'Mental health note' },
+  { value: 'lawsEstimate', label: 'Est. number of laws' },
+  { value: 'cancerRisk', label: 'Cancer risk' },
+  { value: 'accidentRisk', label: 'Accident risk' },
+  { value: 'mentalHealthRisk', label: 'Mental health risk' },
+]

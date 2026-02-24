@@ -16,6 +16,13 @@ function send(body) {
   }).catch(() => {})
 }
 
+/** Use sendBeacon when page is unloading so the request isn't cancelled. */
+function sendBeacon(body) {
+  if (!CLICKS_URL || typeof navigator === 'undefined' || !navigator.sendBeacon) return false
+  const blob = new Blob([JSON.stringify(body)], { type: 'application/json' })
+  return navigator.sendBeacon(CLICKS_URL, blob)
+}
+
 /** Call when user views a country page (e.g. navigated to /explore/France). */
 export function recordCountryView(country) {
   if (country && typeof country === 'string') send({ country: country.trim() })
@@ -24,16 +31,26 @@ export function recordCountryView(country) {
 /** Call once to start counting every click on the site (debounced). */
 export function initGlobalClickTracker() {
   if (typeof document === 'undefined') return
-  const flush = () => {
-    if (pendingClicks > 0) {
-      send({ totalClicks: pendingClicks })
-      pendingClicks = 0
+  const flush = (useBeacon = false) => {
+    if (pendingClicks <= 0) {
+      debounceTimer = null
+      return
     }
+    const body = { totalClicks: pendingClicks }
+    pendingClicks = 0
     debounceTimer = null
+    if (useBeacon) {
+      sendBeacon(body)
+    } else {
+      send(body)
+    }
   }
   document.addEventListener('click', () => {
     pendingClicks += 1
-    if (debounceTimer == null) debounceTimer = setTimeout(flush, DEBOUNCE_MS)
+    if (debounceTimer == null) debounceTimer = setTimeout(() => flush(false), DEBOUNCE_MS)
   })
-  window.addEventListener('beforeunload', flush)
+  window.addEventListener('beforeunload', () => flush(true))
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flush(true)
+  })
 }

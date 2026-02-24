@@ -13,15 +13,22 @@ function getClicksUrl() {
   return `${window.location.origin}/.netlify/functions/clicks`
 }
 
+function getStatSuggestionsUrl() {
+  if (typeof window === 'undefined') return ''
+  return `${window.location.origin}/.netlify/functions/statSuggestions`
+}
+
 export default function AdminPanel({ onExit }) {
   const [key, setKey] = useState('')
   const [inputKey, setInputKey] = useState('')
   const [data, setData] = useState(null)
   const [clickStats, setClickStats] = useState(null)
+  const [statSuggestions, setStatSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [expandedDest, setExpandedDest] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [suggestionActioning, setSuggestionActioning] = useState(null)
 
   useEffect(() => {
     const stored = sessionStorage.getItem(ADMIN_STORAGE_KEY)
@@ -44,14 +51,18 @@ export default function AdminPanel({ onExit }) {
         return res.json()
       }),
       fetch(getClicksUrl()).then((res) => res.json()).catch(() => ({ totalClicks: 0, byCountry: {} })),
+      fetch(`${getStatSuggestionsUrl()}?key=${encodeURIComponent(key)}&status=pending`).then((res) => res.ok ? res.json() : { suggestions: [] }).catch(() => ({ suggestions: [] })),
     ])
-      .then(([json, clicks]) => {
+      .then(([json, clicks, suggestionsResp]) => {
         if (!cancelled && json) {
           setData(json)
           setError('')
         }
         if (!cancelled && clicks) {
           setClickStats({ totalClicks: clicks.totalClicks ?? 0, byCountry: clicks.byCountry ?? {} })
+        }
+        if (!cancelled && suggestionsResp) {
+          setStatSuggestions(suggestionsResp.suggestions ?? [])
         }
       })
       .catch(() => { if (!cancelled) setError('Network error') })
@@ -73,6 +84,22 @@ export default function AdminPanel({ onExit }) {
     setKey('')
     setData(null)
     setError('')
+  }
+
+  const handleSuggestionAction = async (suggestionId, action) => {
+    setSuggestionActioning(suggestionId)
+    try {
+      const res = await fetch(getStatSuggestionsUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, suggestionId, adminKey: key }),
+      })
+      if (res.ok) {
+        setStatSuggestions((prev) => prev.filter((s) => s.id !== suggestionId))
+      }
+    } finally {
+      setSuggestionActioning(null)
+    }
   }
 
   if (!key) {
@@ -169,6 +196,44 @@ export default function AdminPanel({ onExit }) {
                 <span className={styles.chartValue}>{count.toLocaleString()}</span>
               </div>
             ))}
+          </div>
+        )}
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Stat suggestions (approve or reject)</h3>
+        <p className={styles.sectionIntro}>User-submitted corrections or additions to country stats. Approve to apply to the live site.</p>
+        {statSuggestions.length === 0 ? (
+          <p className={styles.empty}>No pending suggestions.</p>
+        ) : (
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Field</th>
+                  <th>Suggested value</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {statSuggestions.map((s) => (
+                  <tr key={s.id}>
+                    <td>{s.country}</td>
+                    <td><code className={styles.code}>{s.field}</code></td>
+                    <td>{String(s.suggestedValue).slice(0, 60)}{String(s.suggestedValue).length > 60 ? '…' : ''}</td>
+                    <td>{s.comment ? String(s.comment).slice(0, 40) + (s.comment.length > 40 ? '…' : '') : '—'}</td>
+                    <td>{s.createdAt ? new Date(s.createdAt).toLocaleDateString() : '—'}</td>
+                    <td>
+                      <button type="button" className={styles.refreshBtn} disabled={suggestionActioning === s.id} onClick={() => handleSuggestionAction(s.id, 'approve')}>Approve</button>
+                      <button type="button" className={styles.logoutBtn} disabled={suggestionActioning === s.id} onClick={() => handleSuggestionAction(s.id, 'reject')}>Reject</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

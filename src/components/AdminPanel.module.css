@@ -222,6 +222,13 @@
   background: var(--surface-hover);
 }
 
+.code {
+  font-size: 0.8rem;
+  background: var(--bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 3px;
+}
+
 .destList {
   display: flex;
   flex-direction: column;

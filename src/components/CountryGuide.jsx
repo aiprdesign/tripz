@@ -1,7 +1,13 @@
 import { useState, useMemo, useEffect } from 'react'
 import { getCountryGuide } from '../data/countryGuides'
 import { getBasicPhrases } from '../data/basicPhrases'
-import { getCountryVisitorInfo } from '../data/countrySafetyLawsMentalHealth'
+import {
+  getCountryVisitorInfo,
+  safetyToGauge,
+  friendlinessToGauge,
+  lawsToGauge,
+  STAT_FIELDS_FOR_SUGGESTIONS,
+} from '../data/countrySafetyLawsMentalHealth'
 import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
 import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getCategoriesForDestination, categoryNames, matchesAnyCategory } from '../data/destinationsByCategory'
@@ -64,11 +70,21 @@ function matchesCategory(city, country, selectedCategories) {
   return matchesAnyCategory(city, country, selectedCategories)
 }
 
-export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowCityDetail }) {
+const STAT_OVERRIDES_URL = typeof window !== 'undefined' ? `${window.location.origin}/.netlify/functions/statOverrides` : ''
+const STAT_SUGGESTIONS_URL = typeof window !== 'undefined' ? `${window.location.origin}/.netlify/functions/statSuggestions` : ''
+
+export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowCityDetail, userProfile }) {
   const [priorityFilter, setPriorityFilter] = useState(PRIORITY_ALL)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [stateFilter, setStateFilter] = useState('')
   const [selectedCityForMap, setSelectedCityForMap] = useState('')
+  const [statOverrides, setStatOverrides] = useState({})
+  const [showSuggestForm, setShowSuggestForm] = useState(false)
+  const [suggestField, setSuggestField] = useState('')
+  const [suggestValue, setSuggestValue] = useState('')
+  const [suggestComment, setSuggestComment] = useState('')
+  const [suggestSubmitting, setSuggestSubmitting] = useState(false)
+  const [suggestDone, setSuggestDone] = useState(false)
   const guide = getCountryGuide(countryName)
   const heroUrl = getCountryImageUrl(countryName, { width: 800, height: 360 })
   const statesForCountry = useMemo(() => getStatesForCountry(guide.country), [guide.country])
@@ -82,6 +98,14 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
     if (citiesWithPois.length > 0)
       setSelectedCityForMap((prev) => (citiesWithPois.some((c) => c.city === prev) ? prev : citiesWithPois[0].city))
   }, [guide.country, citiesWithPois])
+
+  useEffect(() => {
+    if (!STAT_OVERRIDES_URL || !guide.country) return
+    fetch(`${STAT_OVERRIDES_URL}?country=${encodeURIComponent(guide.country)}`)
+      .then((res) => res.json())
+      .then((data) => setStatOverrides(data && typeof data === 'object' ? data : {}))
+      .catch(() => setStatOverrides({}))
+  }, [guide.country])
 
   const filteredMustVisit = useMemo(
     () => guide.mustVisit.filter((city) => matchesCategory(city, guide.country, selectedCategories)),
@@ -203,7 +227,12 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
             <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#c9302c' }}>Bad</span>
           </p>
           {(() => {
-            const info = getCountryVisitorInfo(guide.country)
+            const info = { ...getCountryVisitorInfo(guide.country), ...statOverrides }
+            if (statOverrides.safetyWomen != null) info.safetyWomenGauge = safetyToGauge(info.safetyWomen)
+            if (statOverrides.safetyForeigners != null) info.safetyForeignersGauge = safetyToGauge(info.safetyForeigners)
+            if (statOverrides.friendlinessForeigners != null) info.friendlinessGauge = friendlinessToGauge(info.friendlinessForeigners)
+            if (statOverrides.laws != null) info.lawsGauge = lawsToGauge(info.laws)
+            if (statOverrides.lawsEstimate != null) info.lawsEstimate = Number(info.lawsEstimate) || 0
             return (
               <div className={styles.visitorInfoGrid}>
                 <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.safetyWomenGauge}`]}`}>
@@ -228,10 +257,25 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
                   <span className={styles.visitorInfoLabel}>Friendliness to foreigners</span>
                   <span className={styles.visitorInfoValue}>{info.friendlinessForeigners}</span>
                 </div>
+                {info.attitudeForeignersNote && (
+                  <div className={`${styles.visitorInfoCard} ${styles.attitudeForeignersCard} ${styles[`gauge_${info.friendlinessGauge}`]}`}>
+                    <span className={styles.visitorInfoLabel}>Attitude towards foreigners</span>
+                    <span className={styles.visitorInfoValue}>{info.friendlinessForeigners}</span>
+                    <p className={styles.visitorInfoNote}>{info.attitudeForeignersNote}</p>
+                  </div>
+                )}
                 <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.lawsGauge}`]}`}>
                   <span className={styles.visitorInfoLabel}>Laws & regulations</span>
                   <span className={styles.visitorInfoValue}>~{info.lawsEstimate.toLocaleString()} laws</span>
                   <p className={styles.visitorInfoNote}>{info.lawsLabel}</p>
+                  {info.lawsSubnationalNote && (
+                    <p className={styles.visitorInfoNote}>{info.lawsSubnationalNote}</p>
+                  )}
+                  {info.mostRegulatedStates && info.mostRegulatedStates.length > 0 && (
+                    <p className={styles.visitorInfoNote}>
+                      Most regulated states: {info.mostRegulatedStates.join(', ')}.
+                    </p>
+                  )}
                 </div>
                 <div className={styles.visitorInfoCard}>
                   <span className={styles.visitorInfoLabel}>% of population with mental health issues</span>
@@ -256,6 +300,87 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
               </div>
             )
           })()}
+          {userProfile?.race && (() => {
+            const info = getCountryVisitorInfo(guide.country)
+            const racePrecautions = info.racePrecautions && info.racePrecautions[userProfile.race]
+            if (!racePrecautions) return null
+            return (
+              <div className={styles.racePrecautionsCard}>
+                <h3 className={styles.racePrecautionsTitle}>Precautions for your profile ({userProfile.race})</h3>
+                <p className={styles.racePrecautionsText}>{racePrecautions}</p>
+              </div>
+            )
+          })()}
+          <div className={styles.suggestCorrectionWrap}>
+            {!showSuggestForm ? (
+              <button type="button" className={styles.suggestCorrectionBtn} onClick={() => setShowSuggestForm(true)}>
+                Suggest a correction or add to stats
+              </button>
+            ) : (
+              <div className={styles.suggestCorrectionForm}>
+                <h3 className={styles.suggestCorrectionTitle}>Suggest a correction</h3>
+                {suggestDone ? (
+                  <p className={styles.suggestCorrectionDone}>Thanks! Your suggestion was sent. An admin will review it.</p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      if (!suggestField.trim() || !suggestValue.trim() || suggestSubmitting) return
+                      setSuggestSubmitting(true)
+                      try {
+                        const res = await fetch(STAT_SUGGESTIONS_URL, {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            country: guide.country,
+                            field: suggestField,
+                            suggestedValue: suggestValue.trim(),
+                            comment: suggestComment.trim() || undefined,
+                          }),
+                        })
+                        if (res.ok) {
+                          setSuggestDone(true)
+                          setSuggestField('')
+                          setSuggestValue('')
+                          setSuggestComment('')
+                        }
+                      } finally {
+                        setSuggestSubmitting(false)
+                      }
+                    }}
+                  >
+                    <p className={styles.suggestCorrectionIntro}>Propose a change or addition to the stats above. An admin will approve or reject it.</p>
+                    <input type="text" readOnly value={guide.country} className={styles.suggestCorrectionCountry} aria-label="Country" />
+                    <label className={styles.suggestCorrectionLabel}>
+                      <span>Field to change or add</span>
+                      <select value={suggestField} onChange={(e) => setSuggestField(e.target.value)} required className={styles.suggestCorrectionSelect}>
+                        <option value="">Select…</option>
+                        {STAT_FIELDS_FOR_SUGGESTIONS.map((f) => (
+                          <option key={f.value} value={f.value}>{f.label}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className={styles.suggestCorrectionLabel}>
+                      <span>Suggested value</span>
+                      <input type="text" value={suggestValue} onChange={(e) => setSuggestValue(e.target.value)} required className={styles.suggestCorrectionInput} placeholder="e.g. High or ~20%" />
+                    </label>
+                    <label className={styles.suggestCorrectionLabel}>
+                      <span>Comment (optional)</span>
+                      <textarea value={suggestComment} onChange={(e) => setSuggestComment(e.target.value)} className={styles.suggestCorrectionTextarea} rows={2} placeholder="Source or note" />
+                    </label>
+                    <div className={styles.suggestCorrectionActions}>
+                      <button type="submit" className={styles.suggestCorrectionSubmit} disabled={suggestSubmitting || !suggestField.trim() || !suggestValue.trim()}>
+                        {suggestSubmitting ? 'Sending…' : 'Submit suggestion'}
+                      </button>
+                      <button type="button" className={styles.suggestCorrectionCancel} onClick={() => { setShowSuggestForm(false); setSuggestDone(false) }}>
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
+          </div>
         </section>
 
         <section className={styles.section} aria-labelledby="culture-facts-heading">

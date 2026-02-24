@@ -12,7 +12,7 @@ import CityDetailModal from './CityDetailModal'
 import LocationMapView from './LocationMapView'
 import styles from './Explore.module.css'
 
-export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, initialCountry, initialCountryFromUrl, onClearInitialCountry }) {
+export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, initialCountry, initialCountryFromUrl, onClearInitialCountry, userProfile }) {
   const { country: countryParam } = useParams()
   const navigate = useNavigate()
   const urlCountry = countryParam ? decodeURIComponent(countryParam) : null
@@ -112,6 +112,7 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
           onBack={handleBackToExplore}
           onAddToTrip={handleAddToTrip}
           onShowCityDetail={openCityDetail}
+          userProfile={userProfile || {}}
         />
         {selectedCityDetail && (
           <CityDetailModal
