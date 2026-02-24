@@ -8,13 +8,20 @@ function getAdminUrl() {
   return `${window.location.origin}/.netlify/functions/admin`
 }
 
+function getClicksUrl() {
+  if (typeof window === 'undefined') return ''
+  return `${window.location.origin}/.netlify/functions/clicks`
+}
+
 export default function AdminPanel({ onExit }) {
   const [key, setKey] = useState('')
   const [inputKey, setInputKey] = useState('')
   const [data, setData] = useState(null)
+  const [clickStats, setClickStats] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [expandedDest, setExpandedDest] = useState(null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   useEffect(() => {
     const stored = sessionStorage.getItem(ADMIN_STORAGE_KEY)
@@ -26,8 +33,8 @@ export default function AdminPanel({ onExit }) {
     let cancelled = false
     setLoading(true)
     setError('')
-    fetch(`${getAdminUrl()}?key=${encodeURIComponent(key)}`)
-      .then((res) => {
+    Promise.all([
+      fetch(`${getAdminUrl()}?key=${encodeURIComponent(key)}`).then((res) => {
         if (res.status === 401) {
           sessionStorage.removeItem(ADMIN_STORAGE_KEY)
           setKey('')
@@ -35,17 +42,22 @@ export default function AdminPanel({ onExit }) {
           return null
         }
         return res.json()
-      })
-      .then((json) => {
+      }),
+      fetch(getClicksUrl()).then((res) => res.json()).catch(() => ({ totalClicks: 0, byCountry: {} })),
+    ])
+      .then(([json, clicks]) => {
         if (!cancelled && json) {
           setData(json)
           setError('')
+        }
+        if (!cancelled && clicks) {
+          setClickStats({ totalClicks: clicks.totalClicks ?? 0, byCountry: clicks.byCountry ?? {} })
         }
       })
       .catch(() => { if (!cancelled) setError('Network error') })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [key])
+  }, [key, refreshTrigger])
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -106,13 +118,19 @@ export default function AdminPanel({ onExit }) {
   }
 
   const { stats = {}, topDestinations = [], reviewsByDestination = {}, votesByDestination = {} } = data || {}
+  const byCountry = clickStats?.byCountry ?? {}
+  const totalClicks = clickStats?.totalClicks ?? 0
+  const popularCountries = Object.entries(byCountry)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 20)
+  const maxCountryClicks = popularCountries.length ? Math.max(...popularCountries.map(([, n]) => n)) : 1
 
   return (
     <section className={styles.admin} aria-labelledby="admin-dash-heading">
       <div className={styles.adminHeader}>
         <h2 id="admin-dash-heading" className={styles.adminTitle}>Admin dashboard</h2>
         <div className={styles.adminActions}>
-          <button type="button" className={styles.refreshBtn} onClick={() => setKey((k) => k)}>Refresh</button>
+          <button type="button" className={styles.refreshBtn} onClick={() => setRefreshTrigger((n) => n + 1)}>Refresh</button>
           <button type="button" className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
           {onExit && <button type="button" className={styles.exitBtn} onClick={onExit}>← Back</button>}
         </div>
@@ -122,12 +140,37 @@ export default function AdminPanel({ onExit }) {
         <h3 className={styles.sectionTitle}>Security & health</h3>
         <ul className={styles.statsList}>
           <li><strong>Store status</strong> {stats.storeStatus === 'ok' ? '✓ OK' : '✗ Error'}</li>
+          <li><strong>Total clicks (site)</strong> {totalClicks.toLocaleString()}</li>
           <li><strong>Total destinations (reviews)</strong> {stats.totalDestinations ?? 0}</li>
           <li><strong>Total reviews</strong> {stats.totalReviews ?? 0}</li>
           <li><strong>Average rating (overall)</strong> {stats.avgRatingOverall ?? 0}</li>
           <li><strong>Total likes</strong> {stats.totalLikes ?? 0}</li>
           <li><strong>Total dislikes</strong> {stats.totalDislikes ?? 0}</li>
         </ul>
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Most popular countries</h3>
+        <p className={styles.sectionIntro}>Country guide views (clicks on a country).</p>
+        {popularCountries.length === 0 ? (
+          <p className={styles.empty}>No country views yet.</p>
+        ) : (
+          <div className={styles.chartWrap}>
+            {popularCountries.map(([country, count]) => (
+              <div key={country} className={styles.chartRow}>
+                <span className={styles.chartLabel}>{country}</span>
+                <div className={styles.chartBarTrack}>
+                  <div
+                    className={styles.chartBar}
+                    style={{ width: `${(count / maxCountryClicks) * 100}%` }}
+                    title={`${country}: ${count.toLocaleString()}`}
+                  />
+                </div>
+                <span className={styles.chartValue}>{count.toLocaleString()}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={styles.section}>

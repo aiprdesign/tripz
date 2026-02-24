@@ -73,6 +73,64 @@ const DEFAULT = {
   mentalHealthNote: 'Estimated share of population with anxiety, depression, or other common mental health conditions. Varies by region.',
 }
 
+/** Tips for women travelers — show when safety is not High; country-specific or default. */
+const SAFETY_WOMEN_TIPS = {
+  default: [
+    'Dress in line with local norms to avoid unwanted attention.',
+    'Avoid walking alone at night in unfamiliar or poorly lit areas.',
+    'Use registered taxis or ride apps; share your trip with someone.',
+    'Keep copies of ID and emergency numbers; know the local emergency code.',
+  ],
+  variable: [
+    'Stick to well-known areas and daytime activities when alone.',
+    'Dress conservatively; research local dress codes before you go.',
+    'Use hotel safes; avoid flashing phones or valuables.',
+    'Trust your instincts; leave if a place or person feels off.',
+  ],
+  caution: [
+    'Travel with a companion or group when possible.',
+    'Dress very conservatively; cover shoulders and knees in public.',
+    'Avoid going out alone after dark; use trusted transport only.',
+    'Register with your embassy; keep emergency contacts handy.',
+  ],
+}
+
+/** Tips for foreigners to stay safe — country-specific or default. */
+const SAFETY_FOREIGNERS_TIPS = {
+  default: [
+    'Keep copies of passport and visa; know your embassy contact.',
+    'Use ATMs in secure locations; avoid carrying large amounts of cash.',
+    'Stay aware of local scams targeting tourists.',
+    'Follow local laws and customs; when in doubt, ask.',
+  ],
+  moderate: [
+    'Stick to tourist areas at night; avoid isolated spots.',
+    'Use official or recommended transport; agree on fares in advance.',
+    'Don’t flash expensive items; use a money belt or hidden pouch.',
+    'Check travel advisories and register with your embassy.',
+  ],
+  variable: [
+    'Research no-go areas; avoid political rallies or demonstrations.',
+    'Use only licensed taxis or ride apps; avoid unmarked cars.',
+    'Keep a low profile; avoid discussing sensitive topics in public.',
+    'Have a local SIM or roaming; share your itinerary with someone.',
+  ],
+}
+
+function getSafetyWomenTips(level, countryKey) {
+  if (level === 'High') return ['Standard precautions: keep valuables secure, stay aware of surroundings.']
+  if (level === 'Variable') return SAFETY_WOMEN_TIPS.variable
+  if (level === 'Caution') return SAFETY_WOMEN_TIPS.caution
+  return SAFETY_WOMEN_TIPS.default
+}
+
+function getSafetyForeignersTips(level, countryKey) {
+  if (level === 'High') return ['Standard precautions: keep documents safe, be aware of common scams.']
+  if (level === 'Variable' || level === 'Caution') return SAFETY_FOREIGNERS_TIPS.variable
+  if (level === 'Moderate') return SAFETY_FOREIGNERS_TIPS.moderate
+  return SAFETY_FOREIGNERS_TIPS.default
+}
+
 /** Labels for laws level so visitors know what to expect */
 export const LAWS_LABELS = {
   'Fewer': 'Fewer regulations — generally lighter rules and paperwork for visitors.',
@@ -80,10 +138,60 @@ export const LAWS_LABELS = {
   'Too many': 'Complex / strict — lots of laws and procedures; research visas, permits, and local rules.',
 }
 
-/** Get safety, friendliness, laws, mental health prevalence, and risk likelihood for a country. */
+/** Gauge: best (dark green), good (light green), alert (yellow), bad (red) */
+export function safetyToGauge(value) {
+  if (value === 'High') return 'best'
+  if (value === 'Moderate') return 'good'
+  if (value === 'Variable') return 'alert'
+  if (value === 'Caution') return 'bad'
+  return 'good'
+}
+
+export function friendlinessToGauge(value) {
+  if (value === 'High') return 'best'
+  if (value === 'Moderate') return 'good'
+  if (value === 'Low') return 'alert'
+  return 'good'
+}
+
+export function lawsToGauge(laws) {
+  if (laws === 'Fewer') return 'best'
+  if (laws === 'Many') return 'good'
+  if (laws === 'Too many') return 'bad'
+  return 'good'
+}
+
+/** Estimated total laws (national + subnational) per country — indicative figures. */
+const LAWS_ESTIMATE = {
+  Argentina: 95000, Australia: 120000, Austria: 85000, Belgium: 105000, Brazil: 185000, Canada: 115000, Chile: 78000,
+  China: 280000, Colombia: 92000, Croatia: 72000, 'Czech Republic': 75000, Denmark: 70000, Egypt: 145000, Finland: 68000,
+  France: 135000, Germany: 165000, Greece: 88000, Hungary: 82000, Iceland: 45000, India: 250000, Indonesia: 125000,
+  Ireland: 75000, Israel: 95000, Italy: 155000, Japan: 145000, Jordan: 78000, Kenya: 98000, Malaysia: 88000,
+  Mexico: 135000, Morocco: 85000, Netherlands: 95000, 'New Zealand': 65000, Norway: 72000, Peru: 82000, Philippines: 95000,
+  Poland: 92000, Portugal: 88000, Russia: 165000, Singapore: 115000, 'South Africa': 105000, 'South Korea': 125000,
+  Spain: 115000, Sweden: 78000, Switzerland: 95000, Taiwan: 88000, Thailand: 92000, Turkey: 115000, 'United Arab Emirates': 95000,
+  'United Kingdom': 125000, 'United States': 195000, Vietnam: 85000,
+}
+
+/** Get safety, friendliness, laws, mental health prevalence, risk likelihood, gauge levels, and estimated laws for a country. */
 export function getCountryVisitorInfo(countryName) {
   const key = countryName?.trim()
-  if (!key) return { ...DEFAULT, ...RISK_DEFAULT, lawsLabel: LAWS_LABELS[DEFAULT.laws] }
+  if (!key) {
+    return {
+      ...DEFAULT,
+      cancerRisk: RISK_DEFAULT.cancerRisk,
+      accidentRisk: RISK_DEFAULT.accidentRisk,
+      mentalHealthRisk: RISK_DEFAULT.mentalHealthRisk,
+      lawsLabel: LAWS_LABELS[DEFAULT.laws],
+      safetyWomenGauge: safetyToGauge(DEFAULT.safetyWomen),
+      safetyForeignersGauge: safetyToGauge(DEFAULT.safetyForeigners),
+      friendlinessGauge: friendlinessToGauge(DEFAULT.friendlinessForeigners),
+      lawsGauge: lawsToGauge(DEFAULT.laws),
+      lawsEstimate: 100000,
+      safetyWomenTips: getSafetyWomenTips(DEFAULT.safetyWomen),
+      safetyForeignersTips: getSafetyForeignersTips(DEFAULT.safetyForeigners),
+    }
+  }
   const row = DATA[key]
   const safetyWomen = row?.safetyWomen ?? DEFAULT.safetyWomen
   const safetyForeigners = row?.safetyForeigners ?? DEFAULT.safetyForeigners
@@ -92,6 +200,7 @@ export function getCountryVisitorInfo(countryName) {
   const mentalHealthPct = row?.mentalHealthPct ?? DEFAULT.mentalHealthPct
   const mentalHealthNote = row?.mentalHealthNote ?? DEFAULT.mentalHealthNote
   const risks = RISK_DATA[key] || RISK_DEFAULT
+  const lawsEstimate = LAWS_ESTIMATE[key] ?? 100000
   return {
     safetyWomen,
     safetyForeigners,
@@ -100,10 +209,16 @@ export function getCountryVisitorInfo(countryName) {
     lawsLabel: LAWS_LABELS[laws] || LAWS_LABELS['Many'],
     mentalHealthPct,
     mentalHealthNote,
-    lifetimeRisk: risks.lifetimeRisk,
     cancerRisk: risks.cancerRisk,
     accidentRisk: risks.accidentRisk,
     mentalHealthRisk: risks.mentalHealthRisk,
+    safetyWomenGauge: safetyToGauge(safetyWomen),
+    safetyForeignersGauge: safetyToGauge(safetyForeigners),
+    friendlinessGauge: friendlinessToGauge(friendlinessForeigners),
+    lawsGauge: lawsToGauge(laws),
+    lawsEstimate,
+    safetyWomenTips: getSafetyWomenTips(safetyWomen, key),
+    safetyForeignersTips: getSafetyForeignersTips(safetyForeigners, key),
   }
 }
 

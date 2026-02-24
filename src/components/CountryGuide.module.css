@@ -361,6 +361,48 @@
   gap: 0.35rem;
 }
 
+.visitorInfoCard.gauge_best,
+.visitorInfoCard.gauge_good,
+.visitorInfoCard.gauge_alert,
+.visitorInfoCard.gauge_bad {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 1.25rem;
+}
+
+.visitorInfoCard.gauge_best {
+  border-left-color: #0d6b0d;
+}
+
+.visitorInfoCard.gauge_good {
+  border-left-color: #5cb85c;
+}
+
+.visitorInfoCard.gauge_alert {
+  border-left-color: #f0ad4e;
+}
+
+.visitorInfoCard.gauge_bad {
+  border-left-color: #c9302c;
+}
+
+.gaugeLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.gaugeLegendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid;
+}
+
 .visitorInfoLabel {
   font-size: 0.8rem;
   font-weight: 600;
@@ -402,6 +444,32 @@
   line-height: 1.45;
   color: var(--muted);
   margin: 0.5rem 0 0;
+}
+
+.visitorInfoTips {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.visitorInfoTips li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.visitorInfoTips li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.visitorInfoTips li:last-child {
+  margin-bottom: 0;
 }
 
 .highlightGrid {

@@ -196,36 +196,47 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
         <section className={styles.section} aria-labelledby="visitor-info-heading">
           <h2 id="visitor-info-heading" className={styles.sectionTitle}>Safety & visitor info</h2>
           <p className={styles.sectionIntro}>What to expect: safety for women and foreigners, friendliness to visitors, how regulated the country is, and what share of the population has mental health issues.</p>
+          <p className={styles.gaugeLegend} role="img" aria-label="Gauge colors: dark green best, light green good, yellow alert, red bad">
+            <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#0d6b0d' }}>Best</span>
+            <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#5cb85c' }}>Good</span>
+            <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#f0ad4e' }}>Alert</span>
+            <span className={styles.gaugeLegendItem} style={{ borderLeftColor: '#c9302c' }}>Bad</span>
+          </p>
           {(() => {
             const info = getCountryVisitorInfo(guide.country)
             return (
               <div className={styles.visitorInfoGrid}>
-                <div className={styles.visitorInfoCard}>
+                <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.safetyWomenGauge}`]}`}>
                   <span className={styles.visitorInfoLabel}>Safety for women</span>
-                  <span className={styles.visitorInfoValue} data-level={info.safetyWomen.toLowerCase()}>{info.safetyWomen}</span>
+                  <span className={styles.visitorInfoValue}>{info.safetyWomen}</span>
+                  <ul className={styles.visitorInfoTips}>
+                    {info.safetyWomenTips.map((tip, i) => (
+                      <li key={i}>{tip}</li>
+                    ))}
+                  </ul>
                 </div>
-                <div className={styles.visitorInfoCard}>
+                <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.safetyForeignersGauge}`]}`}>
                   <span className={styles.visitorInfoLabel}>Safety for foreigners</span>
-                  <span className={styles.visitorInfoValue} data-level={info.safetyForeigners.toLowerCase()}>{info.safetyForeigners}</span>
+                  <span className={styles.visitorInfoValue}>{info.safetyForeigners}</span>
+                  <ul className={styles.visitorInfoTips}>
+                    {info.safetyForeignersTips.map((tip, i) => (
+                      <li key={i}>{tip}</li>
+                    ))}
+                  </ul>
                 </div>
-                <div className={styles.visitorInfoCard}>
+                <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.friendlinessGauge}`]}`}>
                   <span className={styles.visitorInfoLabel}>Friendliness to foreigners</span>
-                  <span className={styles.visitorInfoValue} data-friendliness={info.friendlinessForeigners.toLowerCase()}>{info.friendlinessForeigners}</span>
+                  <span className={styles.visitorInfoValue}>{info.friendlinessForeigners}</span>
                 </div>
-                <div className={styles.visitorInfoCard}>
+                <div className={`${styles.visitorInfoCard} ${styles[`gauge_${info.lawsGauge}`]}`}>
                   <span className={styles.visitorInfoLabel}>Laws & regulations</span>
-                  <span className={styles.visitorInfoValue} data-laws={info.laws.toLowerCase()}>{info.laws === 'Too many' ? 'Too many' : info.laws === 'Fewer' ? 'Fewer' : 'Many'}</span>
+                  <span className={styles.visitorInfoValue}>~{info.lawsEstimate.toLocaleString()} laws</span>
                   <p className={styles.visitorInfoNote}>{info.lawsLabel}</p>
                 </div>
                 <div className={styles.visitorInfoCard}>
                   <span className={styles.visitorInfoLabel}>% of population with mental health issues</span>
                   <span className={styles.visitorInfoValue}>{info.mentalHealthPct}</span>
                   <p className={styles.visitorInfoNote}>{info.mentalHealthNote}</p>
-                </div>
-                <div className={styles.visitorInfoCard}>
-                  <span className={styles.visitorInfoLabel}>Lifetime risk (major health)</span>
-                  <span className={styles.visitorInfoValue} data-risk={info.lifetimeRisk.toLowerCase()}>{info.lifetimeRisk}</span>
-                  <p className={styles.visitorInfoNote}>Overall likelihood of serious health outcomes in the country.</p>
                 </div>
                 <div className={styles.visitorInfoCard}>
                   <span className={styles.visitorInfoLabel}>Cancer risk</span>

@@ -9,6 +9,7 @@ const HomePage = lazy(() => import('./components/HomePage'))
 const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import { countryNames } from './data/destinationsByCountry'
 import { runPendingSync } from './data/communityData'
+import { initGlobalClickTracker, recordCountryView } from './utils/clickTracker'
 import { addDays } from './utils/date'
 import { getCountryFlagImageUrl, getCountryIso } from './utils/countryFlags'
 import styles from './App.module.css'
@@ -78,6 +79,18 @@ function App() {
       .catch(() => {})
   }, [])
 
+  // Record every click in the database (debounced) and country views
+  useEffect(() => {
+    initGlobalClickTracker()
+  }, [])
+  const path = location.pathname
+  const countryFromPath = path.startsWith('/explore/') ? decodeURIComponent(path.replace(/^\/explore\//, '')) : null
+  useEffect(() => {
+    if (countryFromPath && countryNames.includes(countryFromPath)) {
+      recordCountryView(countryFromPath)
+    }
+  }, [countryFromPath])
+
   const createTrip = (tripData, options = {}) => {
     const initialDestinations = options.initialDestinations || []
     const destinations = initialDestinations.map((name) => ({
@@ -136,7 +149,6 @@ function App() {
     setTrips((prev) => prev.filter((t) => t.id !== id))
   }
 
-  const path = location.pathname
   const isHome = path === '/'
   const isExplore = path === '/explore' || path.startsWith('/explore/')
   const isTrips = path === '/trips'
