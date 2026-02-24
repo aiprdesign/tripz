@@ -195,7 +195,7 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
 
         <section className={styles.section} aria-labelledby="visitor-info-heading">
           <h2 id="visitor-info-heading" className={styles.sectionTitle}>Safety & visitor info</h2>
-          <p className={styles.sectionIntro}>What to expect: safety for women and foreigners, how regulated the country is, and mental health context in the population and top destinations.</p>
+          <p className={styles.sectionIntro}>What to expect: safety for women and foreigners, friendliness to visitors, how regulated the country is, and what share of the population has mental health issues.</p>
           {(() => {
             const info = getCountryVisitorInfo(guide.country)
             return (
@@ -209,14 +209,38 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
                   <span className={styles.visitorInfoValue} data-level={info.safetyForeigners.toLowerCase()}>{info.safetyForeigners}</span>
                 </div>
                 <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Friendliness to foreigners</span>
+                  <span className={styles.visitorInfoValue} data-friendliness={info.friendlinessForeigners.toLowerCase()}>{info.friendlinessForeigners}</span>
+                </div>
+                <div className={styles.visitorInfoCard}>
                   <span className={styles.visitorInfoLabel}>Laws & regulations</span>
                   <span className={styles.visitorInfoValue} data-laws={info.laws.toLowerCase()}>{info.laws === 'Too many' ? 'Too many' : info.laws === 'Fewer' ? 'Fewer' : 'Many'}</span>
                   <p className={styles.visitorInfoNote}>{info.lawsLabel}</p>
                 </div>
                 <div className={styles.visitorInfoCard}>
-                  <span className={styles.visitorInfoLabel}>Mental health in population & top destinations</span>
-                  <span className={styles.visitorInfoValue} data-mh={info.mentalHealth.toLowerCase()}>{info.mentalHealth} prevalence</span>
+                  <span className={styles.visitorInfoLabel}>% of population with mental health issues</span>
+                  <span className={styles.visitorInfoValue}>{info.mentalHealthPct}</span>
                   <p className={styles.visitorInfoNote}>{info.mentalHealthNote}</p>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Lifetime risk (major health)</span>
+                  <span className={styles.visitorInfoValue} data-risk={info.lifetimeRisk.toLowerCase()}>{info.lifetimeRisk}</span>
+                  <p className={styles.visitorInfoNote}>Overall likelihood of serious health outcomes in the country.</p>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Cancer risk</span>
+                  <span className={styles.visitorInfoValue} data-risk={info.cancerRisk.toLowerCase()}>{info.cancerRisk}</span>
+                  <p className={styles.visitorInfoNote}>Population cancer incidence / environmental risk level.</p>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Accident risk</span>
+                  <span className={styles.visitorInfoValue} data-risk={info.accidentRisk.toLowerCase()}>{info.accidentRisk}</span>
+                  <p className={styles.visitorInfoNote}>Traffic, workplace, and travel-related accident likelihood.</p>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Mental health issue risk</span>
+                  <span className={styles.visitorInfoValue} data-risk={info.mentalHealthRisk.toLowerCase()}>{info.mentalHealthRisk}</span>
+                  <p className={styles.visitorInfoNote}>Likelihood of mental health issues in the population ({info.mentalHealthPct}).</p>
                 </div>
               </div>
             )

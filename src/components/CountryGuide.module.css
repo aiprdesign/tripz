@@ -376,22 +376,25 @@
 }
 
 .visitorInfoValue[data-level="high"],
-.visitorInfoValue[data-laws="fewer"] {
+.visitorInfoValue[data-laws="fewer"],
+.visitorInfoValue[data-friendliness="high"] {
   color: var(--accent);
 }
 
 .visitorInfoValue[data-level="caution"],
-.visitorInfoValue[data-laws="too many"] {
+.visitorInfoValue[data-laws="too many"],
+.visitorInfoValue[data-friendliness="low"] {
   color: var(--text);
   font-weight: 600;
 }
 
-.visitorInfoValue[data-mh="lower"] {
+.visitorInfoValue[data-risk="lower"] {
   color: var(--accent);
 }
 
-.visitorInfoValue[data-mh="higher"] {
+.visitorInfoValue[data-risk="higher"] {
   color: var(--text);
+  font-weight: 600;
 }
 
 .visitorInfoNote {
