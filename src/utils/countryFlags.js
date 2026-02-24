@@ -78,9 +78,10 @@ export function getCountryFlag(countryName) {
   return iso ? isoToFlagEmoji(iso) : ''
 }
 
-/** URL to a small flag image (e.g. for header). Uses flagcdn.com (free, no key). */
-export function getCountryFlagImageUrl(countryName, width = 32) {
+/** URL to a small flag image (e.g. for header). Uses flagcdn.com (free, no key). Size: 28x21 or 24x18. */
+export function getCountryFlagImageUrl(countryName, size = '28x21') {
   const iso = getCountryIso(countryName)
   if (!iso) return ''
-  return `https://flagcdn.com/w${width}/${iso.toLowerCase()}.png`
+  const dims = size === '24x18' ? '24x18' : '28x21'
+  return `https://flagcdn.com/${dims}/${iso.toLowerCase()}.png`
 }

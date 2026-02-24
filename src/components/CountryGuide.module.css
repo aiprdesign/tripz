@@ -344,6 +344,63 @@
   margin: 0;
 }
 
+.visitorInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.visitorInfoCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.visitorInfoLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.visitorInfoValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.visitorInfoValue[data-level="high"],
+.visitorInfoValue[data-laws="fewer"] {
+  color: var(--accent);
+}
+
+.visitorInfoValue[data-level="caution"],
+.visitorInfoValue[data-laws="too many"] {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.visitorInfoValue[data-mh="lower"] {
+  color: var(--accent);
+}
+
+.visitorInfoValue[data-mh="higher"] {
+  color: var(--text);
+}
+
+.visitorInfoNote {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+}
+
 .highlightGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { getCountryGuide } from '../data/countryGuides'
 import { getBasicPhrases } from '../data/basicPhrases'
+import { getCountryVisitorInfo } from '../data/countrySafetyLawsMentalHealth'
 import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
 import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getCategoriesForDestination, categoryNames, matchesAnyCategory } from '../data/destinationsByCategory'
@@ -190,6 +191,36 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>When to go</h2>
           <p className={styles.sectionBody}>{guide.bestTime}</p>
+        </section>
+
+        <section className={styles.section} aria-labelledby="visitor-info-heading">
+          <h2 id="visitor-info-heading" className={styles.sectionTitle}>Safety & visitor info</h2>
+          <p className={styles.sectionIntro}>What to expect: safety for women and foreigners, how regulated the country is, and mental health context in the population and top destinations.</p>
+          {(() => {
+            const info = getCountryVisitorInfo(guide.country)
+            return (
+              <div className={styles.visitorInfoGrid}>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Safety for women</span>
+                  <span className={styles.visitorInfoValue} data-level={info.safetyWomen.toLowerCase()}>{info.safetyWomen}</span>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Safety for foreigners</span>
+                  <span className={styles.visitorInfoValue} data-level={info.safetyForeigners.toLowerCase()}>{info.safetyForeigners}</span>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Laws & regulations</span>
+                  <span className={styles.visitorInfoValue} data-laws={info.laws.toLowerCase()}>{info.laws === 'Too many' ? 'Too many' : info.laws === 'Fewer' ? 'Fewer' : 'Many'}</span>
+                  <p className={styles.visitorInfoNote}>{info.lawsLabel}</p>
+                </div>
+                <div className={styles.visitorInfoCard}>
+                  <span className={styles.visitorInfoLabel}>Mental health in population & top destinations</span>
+                  <span className={styles.visitorInfoValue} data-mh={info.mentalHealth.toLowerCase()}>{info.mentalHealth} prevalence</span>
+                  <p className={styles.visitorInfoNote}>{info.mentalHealthNote}</p>
+                </div>
+              </div>
+            )
+          })()}
         </section>
 
         <section className={styles.section} aria-labelledby="culture-facts-heading">

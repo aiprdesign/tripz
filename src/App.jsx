@@ -10,7 +10,7 @@ const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import { countryNames } from './data/destinationsByCountry'
 import { runPendingSync } from './data/communityData'
 import { addDays } from './utils/date'
-import { getCountryFlagImageUrl } from './utils/countryFlags'
+import { getCountryFlagImageUrl, getCountryIso } from './utils/countryFlags'
 import styles from './App.module.css'
 
 const STORAGE_KEY = 'travel-planner-trips'
@@ -44,6 +44,8 @@ function App() {
   const [showForm, setShowForm] = useState(false)
   const [userCountry, setUserCountry] = useState(() => loadUserCountry())
   const [siteViews, setSiteViews] = useState(null)
+  const [headerFlagError, setHeaderFlagError] = useState(false)
+  const [selectFlagError, setSelectFlagError] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -55,6 +57,11 @@ function App() {
     try {
       localStorage.setItem(USER_COUNTRY_KEY, userCountry)
     } catch {}
+  }, [userCountry])
+
+  useEffect(() => {
+    setHeaderFlagError(false)
+    setSelectFlagError(false)
   }, [userCountry])
 
   // Auto-sync queued reviews/votes to database on load
@@ -153,16 +160,25 @@ function App() {
           <div className={styles.headerRow}>
             <div>
               <h1 className={styles.titleWrap}>
-                {userCountry && getCountryFlagImageUrl(userCountry) && (
-                  <img
-                    src={getCountryFlagImageUrl(userCountry)}
-                    alt=""
-                    className={styles.headerFlag}
-                    width={28}
-                    height={21}
-                    loading="eager"
-                    aria-hidden="true"
-                  />
+                {userCountry && (getCountryFlagImageUrl(userCountry) || getCountryIso(userCountry)) && (
+                  <>
+                    {getCountryFlagImageUrl(userCountry) && !headerFlagError && (
+                      <img
+                        src={getCountryFlagImageUrl(userCountry)}
+                        alt=""
+                        className={styles.headerFlag}
+                        width={28}
+                        height={21}
+                        loading="eager"
+                        referrerPolicy="no-referrer"
+                        aria-hidden="true"
+                        onError={() => setHeaderFlagError(true)}
+                      />
+                    )}
+                    {(headerFlagError || !getCountryFlagImageUrl(userCountry)) && getCountryIso(userCountry) && (
+                      <span className={styles.headerFlagFallback} aria-hidden="true">{getCountryIso(userCountry)}</span>
+                    )}
+                  </>
                 )}
                 <Link to="/" className={styles.titleBtn} aria-label="Atripza – Go to homepage">
                   Atripza
@@ -175,16 +191,25 @@ function App() {
             <label className={styles.countryLabel}>
               <span className={styles.countryLabelText}>My country</span>
               <span className={styles.countrySelectWrap}>
-                {userCountry && getCountryFlagImageUrl(userCountry) && (
-                  <img
-                    src={getCountryFlagImageUrl(userCountry, 24)}
-                    alt=""
-                    className={styles.countrySelectFlag}
-                    width={24}
-                    height={18}
-                    loading="eager"
-                    aria-hidden="true"
-                  />
+                {userCountry && (getCountryFlagImageUrl(userCountry) || getCountryIso(userCountry)) && (
+                  <>
+                    {getCountryFlagImageUrl(userCountry) && !selectFlagError && (
+                      <img
+                        src={getCountryFlagImageUrl(userCountry, '24x18')}
+                        alt=""
+                        className={styles.countrySelectFlag}
+                        width={24}
+                        height={18}
+                        loading="eager"
+                        referrerPolicy="no-referrer"
+                        aria-hidden="true"
+                        onError={() => setSelectFlagError(true)}
+                      />
+                    )}
+                    {(selectFlagError || !getCountryFlagImageUrl(userCountry)) && getCountryIso(userCountry) && (
+                      <span className={styles.countrySelectFlagFallback} aria-hidden="true">{getCountryIso(userCountry)}</span>
+                    )}
+                  </>
                 )}
                 <select
                   className={styles.countrySelect}
