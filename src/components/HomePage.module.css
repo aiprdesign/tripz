@@ -29,10 +29,11 @@
 
 .getStarted {
   margin-bottom: 2rem;
-  padding: 1.25rem;
+  padding: 1.5rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
 }
 
 .getStartedTitle {
@@ -75,6 +76,24 @@
   gap: 1.25rem;
 }
 
+@media (min-width: 1024px) {
+  .home {
+    padding: 0.5rem 0 3rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    max-width: 560px;
+  }
+
+  .cards {
+    gap: 1.5rem;
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -82,18 +101,19 @@
   text-align: left;
   padding: 1.5rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: border-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   text-decoration: none;
   color: inherit;
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--accent-glow);
 }
 
 .card:active {

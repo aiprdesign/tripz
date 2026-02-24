@@ -1,17 +1,27 @@
 :root {
-  --bg: #0f0e0c;
-  --surface: #1a1916;
-  --surface-hover: #242220;
-  --border: #2d2b28;
-  --muted: #6b6560;
-  --text: #e8e4df;
-  --accent: #c49a6c;
-  --accent-dim: #9a7a54;
+  --bg: #0c0b0a;
+  --bg-subtle: #121110;
+  --surface: #181614;
+  --surface-hover: #221f1c;
+  --surface-elevated: #1e1c19;
+  --border: #2a2825;
+  --border-subtle: #22201d;
+  --muted: #7a746e;
+  --text: #ebe8e4;
+  --text-soft: #c4bfb8;
+  --accent: #d4a574;
+  --accent-dim: #b8926a;
+  --accent-glow: rgba(212, 165, 116, 0.15);
   --success: #7d9d7a;
   --danger: #c47a7a;
-  --radius: 12px;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Fraunces', 'DM Sans', Georgia, serif;
 }
 
 * {
@@ -31,11 +41,13 @@ body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg);
+  background-image: radial-gradient(ellipse 120% 80% at 50% -20%, var(--bg-subtle), transparent 50%);
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
 }
 
 /* Focus visible for keyboard users */

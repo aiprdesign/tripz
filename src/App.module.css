@@ -3,6 +3,55 @@
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .app {
+    max-width: 1180px;
+    padding: 0 2rem 4rem;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -2rem 1.75rem -2rem;
+    padding: 1rem 2rem 1.25rem;
+  }
+
+  .headerTop {
+    flex: 1;
+    min-width: 280px;
+    margin-bottom: 0;
+  }
+
+  .headerRow {
+    align-items: center;
+  }
+
+  .nav {
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+
+  .footer {
+    margin: 2rem -2rem 0 -2rem;
+    padding: 1.5rem 2rem 2rem;
+    background: var(--surface-elevated);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  main {
+    flex: 1;
+  }
 }
 
 .pageLoading {
@@ -138,16 +187,18 @@
 .profileSelect {
   padding: 0.35rem 0.5rem;
   font-size: 0.85rem;
-  background: var(--surface);
+  background: var(--surface-hover);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   color: var(--text);
   min-width: 0;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .profileSelect:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .titleWrap {
@@ -279,16 +330,18 @@
   background: var(--accent);
   color: var(--bg);
   border: none;
-  padding: 0.65rem 1.25rem;
-  border-radius: var(--radius);
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 0.9rem;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 .primaryBtn:hover {
   background: var(--accent-dim);
+  box-shadow: var(--shadow-md);
 }
 
 .primaryBtn:active {
@@ -308,6 +361,7 @@
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   color: var(--muted);
+  box-shadow: var(--shadow-sm);
 }
 
 .empty p {
