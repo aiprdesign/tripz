@@ -204,6 +204,8 @@
   cursor: pointer;
   text-align: left;
   transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
 
 .countryCard:hover {

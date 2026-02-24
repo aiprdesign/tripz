@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { countryNames } from '../data/destinationsByCountry'
 import { getDestinationsForCategories, categoryNames } from '../data/destinationsByCategory'
 import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
@@ -11,8 +12,13 @@ import CityDetailModal from './CityDetailModal'
 import LocationMapView from './LocationMapView'
 import styles from './Explore.module.css'
 
-export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, initialCountry, onClearInitialCountry }) {
-  const [selectedCountry, setSelectedCountry] = useState(null)
+export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, initialCountry, initialCountryFromUrl, onClearInitialCountry }) {
+  const { country: countryParam } = useParams()
+  const navigate = useNavigate()
+  const urlCountry = countryParam ? decodeURIComponent(countryParam) : null
+  const [selectedCountry, setSelectedCountry] = useState(() =>
+    urlCountry && countryNames.includes(urlCountry) ? urlCountry : null
+  )
   const [selectedCityDetail, setSelectedCityDetail] = useState(null)
   const [addToTripFor, setAddToTripFor] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -45,12 +51,18 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
     return () => clearTimeout(t)
   }, [toast])
 
+  // Sync selected country when URL param changes (e.g. browser back) or when initialCountry prop is set
   useEffect(() => {
-    if (initialCountry) {
+    if (urlCountry && countryNames.includes(urlCountry)) {
+      setSelectedCountry(urlCountry)
+    } else if (!urlCountry) {
+      setSelectedCountry(null)
+    }
+    if (initialCountry && !urlCountry) {
       setSelectedCountry(initialCountry)
       onClearInitialCountry?.()
     }
-  }, [initialCountry, onClearInitialCountry])
+  }, [urlCountry, initialCountry, onClearInitialCountry])
 
   const handleAddToTrip = (destinationName) => {
     setAddToTripFor(destinationName)
@@ -79,6 +91,17 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
   const handleCityDetailExploreCountry = (country) => {
     setSelectedCityDetail(null)
     setSelectedCountry(country)
+    navigate(`/explore/${encodeURIComponent(country)}`)
+  }
+
+  const handleBackToExplore = () => {
+    setSelectedCountry(null)
+    navigate('/explore')
+  }
+
+  const handleSelectCountry = (country) => {
+    setSelectedCountry(country)
+    navigate(`/explore/${encodeURIComponent(country)}`)
   }
 
   if (selectedCountry) {
@@ -86,7 +109,7 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
       <>
         <CountryGuide
           countryName={selectedCountry}
-          onBack={() => setSelectedCountry(null)}
+          onBack={handleBackToExplore}
           onAddToTrip={handleAddToTrip}
           onShowCityDetail={openCityDetail}
         />
@@ -173,18 +196,18 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
       <p className={styles.gridLabelHint}>Click a card to open that country’s guide and top places.</p>
       <div className={styles.countryGrid}>
         {filteredCountries.map((country) => (
-          <button
+          <a
             key={country}
-            type="button"
+            href={`/explore/${encodeURIComponent(country)}`}
             className={styles.countryCard}
-            onClick={() => setSelectedCountry(country)}
+            onClick={(e) => { e.preventDefault(); handleSelectCountry(country) }}
           >
             <div
               className={styles.countryCardImg}
               style={{ backgroundImage: `url(${getCountryImageUrl(country, { width: 400, height: 220 })})` }}
             />
             <span className={styles.countryCardName}>{country}</span>
-          </button>
+          </a>
         ))}
       </div>
       <p className={styles.gridLabel}>

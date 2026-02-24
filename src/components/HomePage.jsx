@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { IconExplore, IconTrips } from './Icons'
 import {
   COMMON_ITINERARY_PROMPTS,
@@ -101,22 +102,14 @@ export default function HomePage({ userCountry, tripCount, onNavigate, onCreateI
       )}
 
       <div className={styles.cards}>
-        <button
-          type="button"
-          className={styles.card}
-          onClick={() => handleNavigate('explore')}
-        >
+        <Link to="/explore" className={styles.card}>
           <span className={styles.cardIcon}><IconExplore /></span>
           <span className={styles.cardTitle}>Explore the world</span>
           <span className={styles.cardDesc}>
             Browse the map, pick a country, and see top destinations and experiences.
           </span>
-        </button>
-        <button
-          type="button"
-          className={styles.card}
-          onClick={() => handleNavigate('trips')}
-        >
+        </Link>
+        <Link to="/trips" className={styles.card}>
           <span className={styles.cardIcon}><IconTrips /></span>
           <span className={styles.cardTitle}>My trips</span>
           <span className={styles.cardDesc}>
@@ -124,7 +117,7 @@ export default function HomePage({ userCountry, tripCount, onNavigate, onCreateI
               ? 'Create a trip and add destinations from Explore.'
               : `You have ${tripCount} trip${tripCount === 1 ? '' : 's'}. View and edit.`}
           </span>
-        </button>
+        </Link>
       </div>
 
       <section className={styles.localDataSection} aria-labelledby="your-data-heading">

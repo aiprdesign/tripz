@@ -79,6 +79,8 @@
   border-radius: var(--radius);
   cursor: pointer;
   transition: border-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
 
 .card:hover {
