@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { getCountryGuide } from '../data/countryGuides'
-import { getCountryImageUrl, getDestinationImageUrlForCity } from '../data/destinationImages'
+import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
+import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getCategoriesForDestination, categoryNames, matchesAnyCategory } from '../data/destinationsByCategory'
 import { getCitiesWithDestinations } from '../data/cityDestinations'
 import { CategoryIcon } from './Icons'
@@ -26,9 +27,11 @@ function DestCard({ city, country, onAddToTrip, onShowCityDetail, tier }) {
       aria-label={`View details for ${city}`}
     >
       {tier && <span className={styles.tierBadge} data-tier={tier}>{tier === 'must' ? 'Must visit' : tier === 'recommended' ? 'Recommended' : 'If time'}</span>}
-      <div
+      <DestinationImageSlideshow
+        urls={getDestinationImageSlideshowUrlsForCity(city, country)}
+        intervalMs={5000}
         className={styles.highlightImg}
-        style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, country)})` }}
+        ariaLabel={`${city}, ${country}`}
       />
       <div className={styles.highlightInfo}>
         <span className={styles.highlightCity}>{city}</span>
@@ -238,9 +241,11 @@ export default function CountryGuide({ countryName, onBack, onAddToTrip, onShowC
                   className={styles.destChip}
                   onClick={() => onShowCityDetail?.(city, guide.country)}
                 >
-                  <span
+                  <DestinationImageSlideshow
+                    urls={getDestinationImageSlideshowUrlsForCity(city, guide.country)}
+                    intervalMs={5000}
                     className={styles.destChipImg}
-                    style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, guide.country)})` }}
+                    ariaLabel={`${city}, ${guide.country}`}
                   />
                   <span className={styles.destChipLabel}>{city}</span>
                 </button>

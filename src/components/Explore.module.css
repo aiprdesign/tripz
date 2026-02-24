@@ -161,10 +161,12 @@
 }
 
 .destChipImg {
-  height: 80px;
+  height: 96px;
+  min-height: 96px;
   background-size: cover;
   background-position: center;
-  background-color: var(--border);
+  background-color: var(--surface-hover);
+  background-repeat: no-repeat;
 }
 
 .destChipLabel {
@@ -211,11 +213,12 @@
 }
 
 .countryCardImg {
-  height: 110px;
-  min-height: 110px;
+  height: 130px;
+  min-height: 130px;
   background-size: cover;
   background-position: center;
   background-color: var(--surface-hover);
+  background-repeat: no-repeat;
 }
 
 .countryCardName {

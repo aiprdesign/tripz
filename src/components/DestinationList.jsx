@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { destinationsByCountry, countryNames } from '../data/destinationsByCountry'
 import { getDestinationsForCategories, categoryNames } from '../data/destinationsByCategory'
-import { getDestinationImageUrl, getDestinationImageUrlForCity } from '../data/destinationImages'
+import { getDestinationImageSlideshowUrls, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
+import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { IconGlobe, IconCategory, CategoryIcon } from './Icons'
 import styles from './DestinationList.module.css'
 
@@ -124,7 +125,12 @@ export default function DestinationList({ destinations, onUpdate }) {
                     className={styles.cityChip}
                     onClick={() => addFromBrowse(city, selectedCountry)}
                   >
-                    <span className={styles.cityChipImg} style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, selectedCountry)})` }} />
+                    <DestinationImageSlideshow
+                      urls={getDestinationImageSlideshowUrlsForCity(city, selectedCountry)}
+                      intervalMs={5000}
+                      className={styles.cityChipImg}
+                      ariaLabel={`${city}, ${selectedCountry}`}
+                    />
                     <span className={styles.cityChipLabel}>{city}</span>
                   </button>
                 ))}
@@ -160,7 +166,12 @@ export default function DestinationList({ destinations, onUpdate }) {
                     className={styles.cityChip}
                     onClick={() => addFromBrowse(city, country)}
                   >
-                    <span className={styles.cityChipImg} style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, country)})` }} />
+                    <DestinationImageSlideshow
+                      urls={getDestinationImageSlideshowUrlsForCity(city, country)}
+                      intervalMs={5000}
+                      className={styles.cityChipImg}
+                      ariaLabel={`${city}, ${country}`}
+                    />
                     <span className={styles.cityChipLabel}>{city}</span>
                     <span className={styles.cityChipCountry}>{country}</span>
                   </button>
@@ -173,7 +184,12 @@ export default function DestinationList({ destinations, onUpdate }) {
       <ul className={styles.list}>
         {destinations.map((d) => (
           <li key={d.id} className={styles.item}>
-            <div className={styles.itemImage} style={{ backgroundImage: `url(${getDestinationImageUrl(d.name)})` }} />
+            <DestinationImageSlideshow
+              urls={getDestinationImageSlideshowUrls(d.name)}
+              intervalMs={5000}
+              className={styles.itemImage}
+              ariaLabel={d.name}
+            />
             <div className={styles.itemMain}>
               <span className={styles.destName}>{d.name}</span>
               <div className={styles.dates}>

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { countryNames } from '../data/destinationsByCountry'
 import { getDestinationsForCategories, categoryNames } from '../data/destinationsByCategory'
-import { getCountryImageUrl, getDestinationImageUrlForCity } from '../data/destinationImages'
+import { getCountryImageUrl, getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
+import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { CategoryIcon } from './Icons'
 import WorldMap from './WorldMap'
 import CountryGuide from './CountryGuide'
@@ -200,9 +201,11 @@ export default function Explore({ trips, onAddDestinationToTrip, onCreateTrip, i
             className={styles.destChip}
             onClick={() => openCityDetail(city, country)}
           >
-            <span
+            <DestinationImageSlideshow
+              urls={getDestinationImageSlideshowUrlsForCity(city, country)}
+              intervalMs={5000}
               className={styles.destChipImg}
-              style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, country)})` }}
+              ariaLabel={`${city}, ${country}`}
             />
             <span className={styles.destChipLabel}>{city}</span>
             <span className={styles.destChipCountry}>{country}</span>

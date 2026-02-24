@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getCityTripInfo } from '../data/cityTripInfo'
-import { getDestinationImageUrlForCity } from '../data/destinationImages'
+import { getDestinationImageSlideshowUrlsForCity } from '../data/destinationImages'
+import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { getReview, setReview, removeReview, getVote, setVote } from '../data/localUserData'
 import { getCommunityReviews, submitCommunityReview, getCommunityVotes, submitCommunityVote } from '../data/communityData'
 import styles from './CityDetailModal.module.css'
@@ -101,10 +102,14 @@ export default function CityDetailModal({
   return (
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="city-detail-title">
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <div
-          className={styles.hero}
-          style={{ backgroundImage: `url(${getDestinationImageUrlForCity(city, country)})` }}
-        />
+        <div className={styles.hero}>
+          <DestinationImageSlideshow
+            urls={getDestinationImageSlideshowUrlsForCity(city, country, { width: 600, height: 280 })}
+            intervalMs={4500}
+            className={styles.heroSlideshow}
+            ariaLabel={`${city}, ${country}`}
+          />
+        </div>
         <div className={styles.header}>
           <h2 id="city-detail-title" className={styles.title}>{city}</h2>
           <p className={styles.country}>{country}</p>

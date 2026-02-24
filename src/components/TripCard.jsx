@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import DestinationList from './DestinationList'
 import PackingList from './PackingList'
-import { getDestinationImageUrl } from '../data/destinationImages'
+import { getDestinationImageSlideshowUrls } from '../data/destinationImages'
+import DestinationImageSlideshow from './DestinationImageSlideshow'
 import { addDays, daysBetween } from '../utils/date'
 import styles from './TripCard.module.css'
 
@@ -31,9 +32,9 @@ export default function TripCard({ trip, onUpdate, onDelete }) {
     setEditEndDate(trip.endDate || '')
   }, [trip.startDate, trip.endDate])
 
-  const heroImageUrl = trip.destinations?.length > 0
-    ? getDestinationImageUrl(trip.destinations[0].name, { width: 720, height: 200 })
-    : `https://picsum.photos/seed/${encodeURIComponent(trip.name)}/720/200`
+  const heroUrls = trip.destinations?.length > 0
+    ? getDestinationImageSlideshowUrls(trip.destinations[0].name, { width: 720, height: 200 })
+    : [`https://picsum.photos/seed/${encodeURIComponent(trip.name)}/720/200`]
   const prefsData = prefs(trip)
   const scheduleData = schedule(trip)
 
@@ -69,7 +70,14 @@ export default function TripCard({ trip, onUpdate, onDelete }) {
 
   return (
     <article className={styles.card}>
-      <div className={styles.cardHero} style={{ backgroundImage: `url(${heroImageUrl})` }} />
+      <div className={styles.cardHero}>
+        <DestinationImageSlideshow
+          urls={heroUrls}
+          intervalMs={5000}
+          className={styles.cardHeroSlideshow}
+          ariaLabel={trip.name}
+        />
+      </div>
       <header className={styles.cardHeader}>
         <button
           type="button"

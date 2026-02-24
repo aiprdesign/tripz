@@ -6,11 +6,15 @@
 }
 
 .cardHero {
+  position: relative;
   height: 160px;
   min-height: 160px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--surface-hover);
+  overflow: hidden;
+}
+
+.cardHeroSlideshow {
+  position: absolute;
+  inset: 0;
 }
 
 .cardHeader {

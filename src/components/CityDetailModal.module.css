@@ -23,12 +23,16 @@
 }
 
 .hero {
+  position: relative;
   height: 180px;
   min-height: 180px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--surface-hover);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.heroSlideshow {
+  position: absolute;
+  inset: 0;
 }
 
 .header {
